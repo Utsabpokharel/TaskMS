@@ -9,7 +9,9 @@ use App\department;
 use App\toDo;
 use App\allUser;
 use App\Mail\TaskMail;
+use App\Http\Requests\taskValidator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class toDosController extends Controller
 {
@@ -57,13 +59,8 @@ class toDosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(taskValidator $request)
     {
-        if ($request->hasFile('fileUpload')) {
-            $image = $request->file('fileUpload');
-            $name = time() .'.'. $image->getClientOriginalExtension();           
-            $image->move('Uploads/ToDoFiles/',$name);            
-        }
         $todo = new toDo([
             'title' => $request->title,
             'description' => $request->description,            
@@ -72,16 +69,23 @@ class toDosController extends Controller
             'completedDate' => $request->completedDate,
             'assignedTo' => $request->assignedTo,
             'assignedBy' => $request->assignedBy,
+            'ReAssignedBy'=>$request->ReAssignedBy,
             'reAssignedTo' => $request->reAssignedTo,
             'reAssignedDate' => $request->reAssignedDate,
             'reDeadline' => $request->reDeadline,
             'status' => $request->status,
             'remarks' => $request->remarks,
             'deadline' => $request->deadline,
-            'task_priority' => $request->task_priority,            
-            'fileUpload' => $name,           
+            'task_priority' => $request->task_priority,
         ]);
+        // dd($todo);
         // dd($todo->employee->email);
+        if ($request->hasFile('fileUpload')) {
+            $image = $request->file('fileUpload');
+            $name = time() .'.'. $image->getClientOriginalExtension();           
+            $image->move('Uploads/ToDoFiles/',$name);            
+            $todo->fileUpload =$name;
+        } 
         $todos = $todo->save(); 
         
         
@@ -142,7 +146,7 @@ class toDosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(taskValidator $request, $id)
     {
         $tasks = toDo::find($id);
         
@@ -203,14 +207,15 @@ class toDosController extends Controller
     public function reaassign($id)
     {
         $d=Carbon::now();
-        $this->toDo = $this->toDo->find($id);
+        // $this->toDo = $this->toDo->find($id);
+        $todo = toDo::findOrFail($id);
         $superAdmin = role::where('name', '=', 'super_admin')->first();
         $employee = role::where('name', '=', 'employee')->first();
 
         $superAdmin = allUser::where('role_id', '=', $superAdmin->id)->get();
         $employee = allUser::where('role_id', '=', $employee->id)->get();
         
-        return view('Admin.Task.reAssign',compact('d','superAdmin','employee'))->with('toDo', $this->toDo);
+        return view('Admin.Task.reAssign',compact('d','superAdmin','employee','todo'));
 
     }
 
@@ -223,6 +228,7 @@ class toDosController extends Controller
         $todo->reAssignedTo = $request->reAssignedTo;
         $todo->reAssignedDate = $request->reAssignedDate;
         $todo->reDeadline = $request->reDeadline;
+        $todo->ReAssignedBy = $request->ReAssignedBy;
         $update = $todo->update();
         if ($update) {
             $assigned_usr = $todo->reAssignedTo;

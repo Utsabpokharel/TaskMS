@@ -61,8 +61,51 @@
                                     <b>DeadLine</b>
                                     <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->deadline}}</div>
                                 </li>
-                               
+                                @if($tsk->reAssignedTo)
+                                               
+                                    <li class="list-group-item">
+                                        <b>ReAssigned Date </b>
+                                        <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->reAssignedDate}}</div>
+                                    </li>
                                 
+                                    <li class="list-group-item">
+                                        <b>ReAssigned To</b>
+                                        <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->reassignto['name']}}</div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <b>ReAssigned By</b>
+                                        <div class="profile-desc-item pull-right" style="color:gray"> <td>{{$tsk->ReAssignedBy}}</div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <b>Re-DeadLine</b>
+                                        <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->reDeadline}}</div>
+                                    </li>                                                                                      
+                                @endif
+
+                                <li class="list-group-item">
+                                    <b>Task Priority</b>
+                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->task_priority}}</div>
+                                </li>
+
+
+                                
+                               @if($tsk->fileUpload !=[])
+                                <li class="list-group-item">
+                                    <b>File Upload</b>
+                                    <!-- <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->fileUpload}}</div> -->
+                                    <div class="profile-desc-item pull-right">
+                                        <a href="{{asset('/Uploads/ToDoFiles/'.$tsk->fileUpload)}}"> {{$tsk->fileUpload}}</a>
+                                                         
+                                    </div>     
+                                </li>
+                               @else
+                               <li class="list-group-item">
+                                    <b>File Upload</b>
+                                    <div class="profile-desc-item pull-right" style="color:gray">No Files Attached</div>
+                                </li>
+                               @endif 
                                 <li class="list-group-item">
                                     <b>Status</b>
                                     <div class="profile-desc-item pull-right" style="color:gray">

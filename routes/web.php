@@ -27,7 +27,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::resource('/user','allUsersController');
     // tasks
     Route::resource('/task','toDosController');
-    
+    //pending
+    Route::put('/Todo-Pending/{id}','toDosController@pending')->name('pending');
+    //complete
+    Route::put('/Todo-Complete/{id}','toDosController@complete')->name('complete');
+    //re-assign
+    Route::put('//Todo-reassign/{id}','toDosController@reaassign')->name('reaassign');
+    //task re-assign
+    Route::put('/Todo-ReAssign/{id}', 'toDosController@ReAssign')->name('ReAssign');
+
     //user profile    
     Route::get('/profile', 'userProfileController@auth_prof')->name('user_profile');
 

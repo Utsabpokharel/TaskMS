@@ -22,8 +22,9 @@ class CreateToDosTable extends Migration
             $table->string('assignedTo');
             $table->date('deadline');
             $table->string('task_priority');
-            $table->string('fileUpload');
+            $table->string('fileUpload')->nullable();
             $table->string('assignedBy');
+            $table->string('ReAssignedBy')->nullable();            
             $table->string('reAssignedTo')->nullable();
             $table->date('reAssignedDate')->nullable();
             $table->date('reDeadline')->nullable();           
