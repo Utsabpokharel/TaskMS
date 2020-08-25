@@ -26,10 +26,12 @@
                             <header></header>
                         </div>
                         <div class="card-body" id="bar-parent2">
-                            <form action="{{route('ReAssign',$toDo->id)}}" method="post" id="form_sample_2" class="form-horizontal"  enctype="multipart/form-data" autocomplete="on">
+                            <form action="{{route('ReAssign',$todo->id)}}" method="post" id="form_sample_2" class="form-horizontal"  enctype="multipart/form-data" autocomplete="on">
                                 {{csrf_field()}}
                                 <input type="hidden" name="_method" value="PUT">
                                 <input type="hidden" class="form-control" value="{{$d}}" required readonly name="reAssignedDate"/>
+                                <input type="hidden" class="form-control" value="{{Auth::user()->name}}"
+                                           required readonly name="ReAssignedBy"/></div>
                                     <div class="form-group row  margin-top-20">
                                         <label class="control-label col-md-3">Re-Assigned TO
                                             <span class="required"> * </span>
@@ -38,9 +40,9 @@
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
                                                 <select class="form-control col-12 input-append" required name="reAssignedTo">
+                                                <option value="" disabled selected>--Select Staffs--</option>
                                                     @if(isset($employee))
-                                                        @foreach($employee as $employee_data)
-                                                            <option value="" disabled selected hidden>{{$employee_data->name}}</option>
+                                                        @foreach($employee as $employee_data)                                                            
                                                             <option value="{{$employee_data->id}}">{{$employee_data->name}}</option>
                                                         @endforeach
                                                     @endif
@@ -53,7 +55,7 @@
                                                 <span class="required"> * </span>
                                             </label>
                                         <div class="col-md-8">
-                                            <div class="input-append  date form_date" data-date-format="yy-m-d H:i:s"
+                                            <div class="input-append  date form_date" data-date-format="yyyy-mm-dd"
                                                  >
                                                 <input size="30" type="text" required readonly name="reDeadline">
                                                 <span class="add-on"><i class="fa fa-remove icon-remove"></i></span>

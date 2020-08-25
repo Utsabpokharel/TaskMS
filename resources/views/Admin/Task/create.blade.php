@@ -79,7 +79,7 @@
                                             <span class="required"> * </span>
                                         </label>
                                         <div class="col-md-8">
-                                            <div class="input-append date form_date" data-date-format="yy-m-d H:i:s">
+                                            <div class="input-append date form_date" data-date-format="yyyy-mm-dd">
                                                 <input size="65" type="text" required readonly name="deadline" value="{{old('deadline','')}}">
                                                 <span class="add-on"><i class="fa fa-remove icon-remove"></i></span>
                                                 <span class="add-on"><i class="fa fa-calendar"></i></span>
@@ -96,10 +96,10 @@
                                                 <i class="fa"></i>
                                                 <select class="form-control input-height" required name="task_priority">
                                                     <option value="" disabled selected>--Select Priority--</option>
-                                                    <option value="High">High</option>
-													<option value="Low">Low</option>
-													<option value="Medium">Medium</option>
-													<option value="Urgent">Urgent</option>
+                                                    <option value="High" {{old('task_priority')=='High'?'selected':''}}>High</option>
+													<option value="Low" {{old('task_priority')=='Low'?'selected':''}}>Low</option>
+													<option value="Medium" {{old('task_priority')=='Medium'?'selected':''}}>Medium</option>
+													<option value="Urgent" {{old('task_priority')=='Urgent'?'selected':''}}>Urgent</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -143,6 +143,7 @@
                                     <input type="hidden" class="form-control" value="{{Auth::user()->name}}"
                                            required readonly name="assignedBy"/></div>
                                     {{--End--}}
+                                    
                                     {{--Status--}}
                                     <div>
                                         <input type="hidden" class="form-control" value="0"

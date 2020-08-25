@@ -36,7 +36,11 @@
 								<th>assignedBy</th>
                                 <th>Deadline</th>
                                 <th>Status</th>
-								<th>Actions</th>																									
+								<th>Actions</th> 
+                                <th>Re-Assigned To</th>
+                                       
+                                   
+                                																									
 							</tr>
 						</thead>
 						<tbody>	
@@ -91,7 +95,7 @@
 
                                                     <li>
                                                         <a href="javascript:;">
-                                                            <form action="{{route('reassign',$tsk->id)}}"
+                                                            <form action="{{route('reaassign',$tsk->id)}}"
                                                                   method="post">
                                                                 {{csrf_field()}}
                                                                 <input type="hidden" name="_method" value="PUT">
@@ -131,6 +135,11 @@
                                                             class="fa fa-trash-o"></span></button>
                                             </form>
                                         </td>
+                                        @if($tsk->reAssignedTo)
+                                                <td>{{@$tsk->reassignto['name']}}</td>
+                                        @else
+                                            <td>None</td>                                                                                                                                              -->
+                                        @endif
                                     </tr>
                             @endforeach  
                         @endif                            																										
@@ -145,6 +154,7 @@
                                 <th>Deadline</th>
                                 <th>Status</th>
 								<th>Actions</th>
+                                <th>Re-Assigned To</th>
 							</tr>
 						</tfoot>
 					</table>
