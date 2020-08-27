@@ -44,6 +44,15 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'super' => [
+            \App\Http\Middleware\superAdmin::class,
+        ],
+        'employee' => [
+            \App\Http\Middleware\employee::class,
+        ],
+        'admin' => [
+            \App\Http\Middleware\admin::class,
+        ],
     ];
 
     /**

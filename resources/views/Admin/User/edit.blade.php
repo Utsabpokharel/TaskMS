@@ -33,6 +33,16 @@
 										{{csrf_field()}}
 										<input type="hidden" name="_method" value="PUT">
 										<div class="form-body">
+											@if ($errors->any())
+												<div class="alert alert-danger">
+													<ul>
+														@foreach ($errors->all() as $error)
+															<li>{{ $error }}</li>
+														@endforeach
+													</ul>
+												</div>
+											@endif
+
 											<div class="form-group row">
 												<label class="control-label col-md-3">Name
 													<span class="required"> * </span>
@@ -160,15 +170,15 @@
 											<div class="row">
                                             	<div class="card-body" id="bar-parent3">                                               
                                                     <div class="radio">
-                                                        <input id="radiobg1" name="gender" type="radio" checked="checked" value="Male">
+                                                        <input id="radiobg1" name="gender" type="radio"  value="Male" {{'Male'== old('gender',$users->gender) ? 'checked' : ''}}>
                                                         <label for="radiobg1">Male</label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input id="radiobg2" name="gender" type="radio" value="Female">
+                                                        <input id="radiobg2" name="gender" type="radio" value="Female" {{'Female'== old('gender',$users->gender) ? 'checked' : ''}}>
                                                         <label for="radiobg2">Female</label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input id="radiobg3" name="gender" type="radio" value="Other">
+                                                        <input id="radiobg3" name="gender" type="radio" value="Other" {{'Other'== old('gender',$users->gender) ? 'checked' : ''}}>
 														<label for="radiobg3">Others</label>
                                                     </div>
                                                 </div>

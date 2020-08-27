@@ -33,6 +33,7 @@
 									<span class="selected"></span>									
 								</a>								
 							</li>
+						@if(Auth::user()->role_id==1)
 							<li class="nav-item">
 								<a href="#" class="nav-link nav-toggle"> <i class="material-icons">event</i>
 									<span class="title">Event Management</span>
@@ -120,7 +121,6 @@
 									</li>									
 								</ul>
 							</li>
-																										
 							<li class="nav-item">
 								<a href="index.html#" class="nav-link nav-toggle"> <i class="material-icons">monetization_on</i>
 									<span class="title">Salary</span> <span class="arrow"></span>
@@ -135,8 +135,103 @@
 									<li class="nav-item">
 										<a href="" class="nav-link "> <span class="title">Salary Receipt</span></a>
 									</li>
+						
 								</ul>
-							</li>							
+							</li>
+						@endif	
+						@if(Auth::user()->role_id==2)
+							<li class="nav-item">
+								<a href="{{route('department.index')}}" class="nav-link nav-toggle"> <i class="material-icons">business</i>
+									<span class="title">Departments</span> <span class="arrow"></span>
+								</a>
+								<ul class="sub-menu">
+									<li class="nav-item">
+										<a href="{{route('department.index')}}" class="nav-link "> <span class="title">All
+												Departments</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{route('department.create')}}" class="nav-link "> <span class="title">Add
+												Department</span>
+										</a>
+									</li>									
+								</ul>
+							</li>
+							
+							<li class="nav-item">
+								<a href="{{route('user.index')}}" class="nav-link nav-toggle"> <i class="material-icons">group</i>
+									<span class="title">Users</span> <span class="arrow"></span>
+									<span class="label label-rouded label-menu label-success">new</span>
+								</a>
+								<ul class="sub-menu">
+									<li class="nav-item">
+										<a href="{{route('user.index')}}" class="nav-link "> <span class="title">All
+												Users</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{route('user.create')}}" class="nav-link "> <span class="title">Add
+												Users</span>
+										</a>
+									</li>									
+								</ul>
+							</li>
+							<li class="nav-item">
+								<a href="" class="nav-link nav-toggle"><i class="material-icons">book</i>
+									<span class="title">Tasks</span><span class="arrow"></span></a>
+								<ul class="sub-menu">
+									<li class="nav-item">
+										<a href="{{route('task.index')}}" class="nav-link "> <span class="title">All
+												Tasks</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{route('task.create')}}" class="nav-link "> <span class="title">Add
+												Tasks</span>
+										</a>
+									</li>									
+								</ul>
+							</li>
+							<li class="nav-item">
+								<a href="" class="nav-link nav-toggle"> <i class="material-icons">local_library</i>
+									<span class="title">Reports</span> <span class="arrow"></span>
+								</a>
+								<ul class="sub-menu">
+									<li class="nav-item">
+										<a href="" class="nav-link "> <span class="title">All Reports</span></a>
+									</li>
+									<li class="nav-item">
+										<a href="" class="nav-link "> <span class="title">Add Reports</span></a>
+									</li>									
+								</ul>
+							</li>
+						@endif	
+						@if(Auth::user()->role_id==3)
+							<li class="nav-item">
+								<a href="" class="nav-link nav-toggle"><i class="material-icons">book</i>
+									<span class="title">Tasks</span><span class="arrow"></span></a>
+								<ul class="sub-menu">
+									<li class="nav-item">
+										<a href="{{route('Employee')}}" class="nav-link "> <span class="title">All
+												Tasks</span>
+										</a>
+									</li>				
+								</ul>
+							</li>
+							<li class="nav-item">
+								<a href="" class="nav-link nav-toggle"> <i class="material-icons">local_library</i>
+									<span class="title">Reports</span> <span class="arrow"></span>
+								</a>
+								<ul class="sub-menu">
+									<li class="nav-item">
+										<a href="" class="nav-link "> <span class="title">All Reports</span></a>
+									</li>
+									<li class="nav-item">
+										<a href="" class="nav-link "> <span class="title">Add Reports</span></a>
+									</li>									
+								</ul>
+							</li>
+						@endif					
 						</ul>
 					</div>
 				</div>

@@ -30,8 +30,8 @@
                                 {{csrf_field()}}
                                 <input type="hidden" name="_method" value="PUT">
                                 <input type="hidden" class="form-control" value="{{$d}}" required readonly name="reAssignedDate"/>
-                                <input type="hidden" class="form-control" value="{{Auth::user()->name}}"
-                                           required readonly name="ReAssignedBy"/></div>
+                                <input type="hidden" class="form-control" value="{{Auth::user()->id}}" required readonly name="ReUser_id"/>
+                                <input type="hidden" class="form-control" value="{{Auth::user()->name}}" required readonly name="ReAssignedBy"/></div>
                                     <div class="form-group row  margin-top-20">
                                         <label class="control-label col-md-3">Re-Assigned TO
                                             <span class="required"> * </span>

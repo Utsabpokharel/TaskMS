@@ -54,11 +54,36 @@
                                 <!-- SIDEBAR BUTTONS -->
                                 <div class="profile-userbuttons">
                                     <a href="{{route('update_profile')}}">
-                                        <button type="button" class="btn btn-circle green btn-sm">Update
+                                        <button type="button" class="btn btn-circle yellow btn-sm">Update
                                             Profile
                                         </button>
                                     </a>
-                                    {{--<button type="button" class="btn btn-circle red btn-sm">Message</button>--}}
+                                    
+                                    <form action="{{route('update_photo',Auth::user()->id)}}" id="form_sample_2"
+                                              class="form-horizontal" method="post"
+                                              autocomplete="on" enctype="multipart/form-data">
+
+                                            @csrf
+                                            <input type="hidden" name="_method" value="PUT">
+                                            
+                                            <div class="form-body">
+                                            <b>Click here to change Profile Image </b>
+                                            <input type="file" class="form-control btn-circle btn-sm @error('image') is-invalid @enderror" name="image"/>
+                                            @error('image')
+												<span class="invalid-feedback" role="alert">
+													<strong>{{$message}}</strong>
+												</span>
+											@enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="offset-md-3 col-md-9">
+                                                    <button type="submit" class="btn btn-circle blue btn-sm">Update</button>
+                                                    <!-- <a class="btn btn-default" href="{{route('user_profile')}}">Cancel</a> -->
+                                                </div>
+                                            </div>
+                                          
+                                    </form>        
+                                        
                                 </div>
                                 <!-- END SIDEBAR BUTTONS -->
                             </div>
