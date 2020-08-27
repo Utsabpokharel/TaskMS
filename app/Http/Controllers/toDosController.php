@@ -9,6 +9,7 @@ use App\department;
 use App\toDo;
 use App\allUser;
 use App\Mail\TaskMail;
+use App\Mail\TaskCompleteMail;
 use App\Http\Requests\taskValidator;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
@@ -149,22 +150,13 @@ class toDosController extends Controller
     public function update(taskValidator $request, $id)
     {
         $tasks = toDo::find($id);
-        
-        // $this->toDo = $this->toDo->find($id);
-        // if (!$this->toDo) {
-        //     request()->session()->flash('error', 'Todos not found');
-        //     return redirect()->route('task.index');
-        // }
-        // $data = $request->all();
-        // $this->toDo->fill($data);
-        // $success = $this->toDo->save();
         $update = $tasks->save();
         if ($update) {
-            // request()->session()->flash('success', 'Todos list updated successfully');
+           
             return redirect()->route('task.index')->with('success','Selected Task updated successfully');
 
         } else {
-            // request()->session()->flash('error', 'sorry there was an error updating Todos list');
+           
             return redirect()->back()->with('error','Sorry the changes couldn\'t be made');
         }
     }
@@ -190,7 +182,7 @@ class toDosController extends Controller
         $todo->status = 0;
         $todo->completedDate = null;
         $todo->update();
-        return redirect()->back()->with('success', 'status changed');
+        return redirect()->back()->with('success', 'Task Status changed');
     }
 
     public function complete(Request $request, $id)
@@ -200,8 +192,23 @@ class toDosController extends Controller
         $todo = toDo::findOrFail($id);
         $todo->status = 1;
         $todo->completedDate = date("Y-m-d H:i:s");
-        $todo->update();
-        return redirect()->back()->with('success', 'status changed');
+        $update= $todo->update();
+        if ($update) {
+            if($todo->ReUser_id){
+                $reAssigned_usr = $todo->ReUser_id;
+                $assig_user = allUser::find($reAssigned_usr);               
+                Mail::to($assig_user->email)->send(new TaskCompleteMail($todo->title));
+
+            }else{
+                $assigned_usr = $todo->user_id;
+                $assig_user = allUser::find($assigned_usr);
+                Mail::to($assig_user->email)->send(new TaskCompleteMail($todo->title));
+            }     
+            return redirect()->back()->with('success', 'Task Status changed');
+        } else {
+            request()->session()->flash('error', 'sorry there was an error Re_Assigning Task');
+        }
+        
     }
 
     public function reaassign($id)

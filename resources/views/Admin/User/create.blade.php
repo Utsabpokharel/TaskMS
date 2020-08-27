@@ -153,7 +153,7 @@
 												<div class="col-md-5">
 													<select class="form-control input-height @error('sub_department') is-invalid @enderror" name="sub_department">
 														<option value="" disabled selected>Select Sub-Department</option>
-														<option value="">None</option>
+														<option value="0">None</option>
 														@foreach($depart as $dept)
                                                         <option value="{{$dept->id}}">{{$dept->sub_dept}}</option>
                                                    		@endforeach
@@ -206,15 +206,15 @@
 											<div class="row">
                                             	<div class="card-body" id="bar-parent3">                                               
                                                     <div class="radio">
-                                                        <input id="radiobg1" name="gender" type="radio" checked="checked" value="Male">
+                                                        <input id="radiobg1" name="gender" type="radio" checked="checked" value="Male" {{'Male'== old('gender','') ? 'checked' : ''}}>
                                                         <label for="radiobg1">Male</label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input id="radiobg2" name="gender" type="radio" value="Female">
+                                                        <input id="radiobg2" name="gender" type="radio" value="Female" {{'Female'== old('gender','') ? 'checked' : ''}}>
                                                         <label for="radiobg2">Female</label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input id="radiobg3" name="gender" type="radio" value="Other">
+                                                        <input id="radiobg3" name="gender" type="radio" value="Other" {{'Other'== old('gender','') ? 'checked' : ''}}>
 														<label for="radiobg3">Others</label>
                                                     </div>
                                                 </div>

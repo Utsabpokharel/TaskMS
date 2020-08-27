@@ -10,12 +10,14 @@ use App\educationDetail;
 use App\workDetail;
 use App\personalDetail;
 use Illuminate\Support\Facades\Auth;
+// use App\Http\Requests\userValidator;
+
 
 class userProfileController extends Controller
 {
     public function auth_prof()
     {
-        $users = allUser::findOrFail($id);
+        // $users = allUser::findOrFail($id);
 
         $admin_id = role::where('name', '=', 'admin')->first();        
         $emp_id = role::where('name', '=', 'employee')->first();
@@ -27,7 +29,7 @@ class userProfileController extends Controller
         $wrk =  workDetail::where('user_id','=',Auth::user()->id)->first();
         $prsnl =  personalDetail::where('user_id','=',Auth::user()->id)->first();
         // $degree = Degree::a();
-        return view('Admin/User/profile', compact('users','admin','employee','educ','wrk','prsnl'));
+        return view('Admin/User/profile', compact('admin','employee','educ','wrk','prsnl'));
     }
 
     public function prof_update(Request $request)
@@ -41,22 +43,26 @@ class userProfileController extends Controller
         }
     }
 
-    public function update_user(updatePwd $request, $id)
+    public function photo_update(Request $request, $id)
     {
         $user = allUser::findOrFail($id);
-        // $old_password = $user->password;
-        // $current = $request->old_password;
-        // $new_pwd = $request->password;
+         
         if ($request->hasFile('image')) {
             if ($user->image != null) {
                 unlink(public_path() . '/Uploads/UserImage/' . $user->image);
             }
             $new_img = $request->file('image');
-            $name = time() . $new_img->getClientOriginalExtension();
-            $image->move('Uploads/UserImage/',$name);
+            $name = "User-" . time() .'.'. $new_img->getClientOriginalExtension();
+            $new_img->move('Uploads/UserImage/',$name);
             $user->image = $name;    
         }else{
             $user->image = Auth::user()->image;
-        }        
+        }  
+        $update = $user->save();
+        if($update){
+            return redirect()->back()->with('success','User Photo updated successfully');
+        }else{
+           return redirect()->back()->with('error','Errors Occurred !!!');
+       }      
     }
 }

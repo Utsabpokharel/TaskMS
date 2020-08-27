@@ -31,6 +31,7 @@ class CreateToDosTable extends Migration
             $table->boolean('status')->default(0);
             $table->longText('remarks')->nullable();
             $table->foreignId('user_id')->constrained('all_users')->onDelete('cascade');
+            $table->foreignId('ReUser_id')->nullable();
             $table->timestamps();
         });
     }

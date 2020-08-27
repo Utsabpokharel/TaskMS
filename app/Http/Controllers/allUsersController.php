@@ -105,21 +105,19 @@ class allUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(userValidator $request, $id)
+    public function update(Request $request, $id)
     {
         $user = allUser::find($id);
-        if ($request->hasFile('image')) {
-            if ($user->image != null) {
-                unlink(public_path() . '/Uploads/UserImage/' . $user->image);
-            }
-            $featured = $request->file('image');
-            $name = time().'.'. $featured->getClientOriginalExtension();
-            $featured->move('Uploads/UserImage/',$name); 
-
-            $user->image = $name;
-        }else{
-            $user->image = $user->image;
-        }
+        $request->validate([
+            'name' => 'required | min:3 | max:50',
+            'email' => 'required| email:rfc,dns',
+            'role_id' => 'required',
+            'gender' =>'required',
+            'department_id' => 'required',
+            'position' =>'required',
+            'joined_date' => 'required',
+            'sub_department' => 'required'
+        ]);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role_id = $request->role_id;
@@ -129,6 +127,7 @@ class allUsersController extends Controller
         $user->joined_date = $request->joined_date;
         $user->sub_department = $request->sub_department;
         $update = $user->save();
+        // dd($update);
         if($update){
             return redirect()->route('user.index')->with('success','Users details updated successfully');
         }else{
