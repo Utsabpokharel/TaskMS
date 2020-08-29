@@ -55,14 +55,14 @@
                                         <td>{{$tsk->deadline}}</td>
                                         <td class="valigntop">
                                             <div class="btn-group">
-                                                <button
-                                                        class="btn btn-xs  dropdown-toggle no-margin"
+                                            @if($tsk->status==1)
+                                                Completed
+                                            @else
+                                                <button class="btn btn-xs  dropdown-toggle no-margin"
                                                         type="button" data-toggle="dropdown"
                                                         aria-expanded="false">
                                                     @if($tsk->status==0)
                                                         Pending
-                                                    @else
-                                                        Completed
                                                     @endif
                                                     <i class="fa fa-angle-down"></i>
                                                 </button>
@@ -105,7 +105,7 @@
                                                             </form>
                                                         </a>
                                                     </li>
-
+                                                @endif
                                                     
                                                 </ul>
                                             </div>
@@ -117,24 +117,31 @@
                                         @else
                                         <td>Re-Assigned</td>
                                         @endif -->
+                                        @if($tsk->status==1)
                                         <td class="text-left">
-
-                                            <form action="{{ route('task.edit', $tsk->id)}}" method="GET"
-                                                  style="display: inline-block">
-                                                {{csrf_field()}}
-                                                {{method_field('PUT')}}
-                                                <button class="btn btn-primary btn-sm" type="submit"><span
-                                                            class="fa fa-pencil"></span></button>
-                                            </form>
-                                            
-                                            <form action="{{ route('task.destroy', $tsk->id)}}" method="post"
-                                                  style="display: inline-block">
-                                                {{csrf_field()}}
-                                                {{method_field('DELETE')}}
-                                                <button class="btn btn-danger btn-sm" type="submit"><span
-                                                            class="fa fa-trash-o"></span></button>
-                                            </form>
+                                        <a href="{{route('task.show',[$tsk->id])}}" class="btn-success btn-sm btn-circle blue" type="submit">View <span
+                                                                class="fa fa-eye"></span></a>
                                         </td>
+                                        @else
+                                            <td class="text-left">
+
+                                                <form action="{{ route('task.edit', $tsk->id)}}" method="GET"
+                                                    style="display: inline-block">
+                                                    {{csrf_field()}}
+                                                    {{method_field('PUT')}}
+                                                    <button class="btn btn-primary btn-sm" type="submit"><span
+                                                                class="fa fa-pencil"></span></button>
+                                                </form>
+                                                
+                                                <form action="{{ route('task.destroy', $tsk->id)}}" method="post"
+                                                    style="display: inline-block">
+                                                    {{csrf_field()}}
+                                                    {{method_field('DELETE')}}
+                                                    <button class="btn btn-danger btn-sm" type="submit"><span
+                                                                class="fa fa-trash-o"></span></button>
+                                                </form>
+                                            </td>
+                                        @endif
                                         @if($tsk->reAssignedTo)
                                                 <td>{{@$tsk->reassignto['name']}}</td>
                                         @else

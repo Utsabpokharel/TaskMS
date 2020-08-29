@@ -1,4 +1,5 @@
-@extends('Admin.layouts.master')
+
+@extends('Admin.Layouts.master')
 @section('main_content')
 
 
@@ -16,81 +17,118 @@
                                                                href="{{route('admin-dashboard')}}">Home</a>&nbsp;<i
                                     class="fa fa-angle-right"></i>
                         </li>
-                        <li><a class="parent-item" href="">task</a>&nbsp;<i
+                        <li><a class="parent-item" href="{{route('task.index')}}">Tasks</a>&nbsp;<i
                                     class="fa fa-angle-right"></i>
                         </li>
-                        <li class="active">All Detail</li>
+                        <li class="active">All Details</li>
                     </ol>
                 </div>
             </div>
-            <div class="row">
+            <div class="row">             
                 <div class="col-md-12 col-sm-12">
                     <div class="card">
                         <div class="card-head card-topline-aqua">
                             <header>Task Detail</header>
+                            <a class="parent-item pull-right btn btn-sm btn-circle blue" href="{{ route('Employee')}}">Back</a>
                         </div>
                         <div class="card-body padding height-9">
-
                             <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item">
+                           
+                                <li class="list-group-item left">
                                     <b>Title </b>
-                                    <div class="profile-desc" style="color:lightgreen">{{$todo->title}}</div>
+                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->title}}</div>
                                 </li>
 
                                 <li class="list-group-item">
                                     <b>Description</b>
-                                    <div class="profile-desc" style="color:lightgreen">{!!$todo->description !!}</div>
+                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->description}}</div>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Assigned Date </b>
-                                    <div class="profile-desc-item " style="color:lightgreen">{{$todo->assignedDate}}</div>
+                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->assignedDate}}</div>
                                 </li>
+                               
                                 <li class="list-group-item">
-                                    <b>Assigned To </b>
-                                    <div class="profile-desc-item " style="color:lightgreen">{{$todo->employee['name']}}</div>
+                                    <b>Assigned To</b>
+                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->employee['name']}}</div>
                                 </li>
-                                @if($todo->CompletedDate)
-                                <li class="list-group-item">
-                                    <b>Completed Date</b>
-                                    <div class="profile-desc-item " style="color:lightgreen">{{$todo->CompletedDate}}</div>
-                                </li>
-                                @endif
+
                                 <li class="list-group-item">
                                     <b>Assigned By</b>
-                                    <div class="profile-desc-item " style="color:lightgreen">{{$todo->superadmin['name']}}</div>
+                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->assignedBy}}</div>
                                 </li>
+
                                 <li class="list-group-item">
-                                    <b>Dead Line</b>
-                                    <div class="profile-desc-item " style="color:lightgreen">{{$todo->DeadLine}}</div>
+                                    <b>DeadLine</b>
+                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->deadline}}</div>
                                 </li>
-                            @if($todo->reassignedto)
+                                @if($tsk->reAssignedTo)
+                                               
                                     <li class="list-group-item">
-                                    <b>Re-Assigned To</b>
-                                    <div class="profile-desc-item " style="color:lightgreen">{{$todo->reassignto['name']}}</div>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Re-Assigned Date</b>
-                                    <div class="profile-desc-item " style="color:lightgreen">{{$todo->reAssignedDate}}</div>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Re-Assigned Deadline</b>
-                                    <div class="profile-desc-item " style="color:lightgreen">{{$todo->reDeadLine}}</div>
-                                </li>
+                                        <b>ReAssigned Date </b>
+                                        <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->reAssignedDate}}</div>
+                                    </li>
+                                
+                                    <li class="list-group-item">
+                                        <b>ReAssigned To</b>
+                                        <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->reassignto['name']}}</div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <b>ReAssigned By</b>
+                                        <div class="profile-desc-item pull-right" style="color:gray"> <td>{{$tsk->ReAssignedBy}}</div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <b>Re-DeadLine</b>
+                                        <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->reDeadline}}</div>
+                                    </li>                                                                                      
                                 @endif
+
+                                <li class="list-group-item">
+                                    <b>Task Priority</b>
+                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->task_priority}}</div>
+                                </li>
+
+
+                                
+                               @if($tsk->fileUpload !=[])
+                                <li class="list-group-item">
+                                    <b>File Upload</b>
+                                    <!-- <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->fileUpload}}</div> -->
+                                    <div class="profile-desc-item pull-right">
+                                        <a href="{{asset('/Uploads/ToDoFiles/'.$tsk->fileUpload)}}"> {{$tsk->fileUpload}}</a>
+                                                         
+                                    </div>     
+                                </li>
+                               @else
+                               <li class="list-group-item">
+                                    <b>File Upload</b>
+                                    <div class="profile-desc-item pull-right" style="color:gray">No Files Attached</div>
+                                </li>
+                               @endif 
                                 <li class="list-group-item">
                                     <b>Status</b>
-                                    <div class="profile-desc-item " style="color:lightgreen">
-                                        @if($todo->status==0)
-                                        Pending
+                                    <div class="profile-desc-item pull-right" style="color:gray">
+                                    @if($tsk->status==0)
+                                        <td>Pending</td>
+                                        @elseif($tsk->status==1)
+                                        <td>Completed</td>
                                         @else
-                                        Completed
+                                        <td>Re-Assigned</td>
                                         @endif
                                     </div>
                                 </li>
+                                @if($tsk->completedDate)
+                                    <li class="list-group-item">
+                                        <b>Completed Date</b>
+                                        <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->completedDate}}</div>
+                                    </li>
+                                @endif
                                 <li class="list-group-item">
                                     <b>Remarks</b>
-                                    <div class="profile-desc" style="color:lightgreen">
-                                        {!! $todo->remarks !!}
+                                    <div class="profile-desc-item pull-right" style="color:gray">
+                                    {{$tsk->remarks}} 
                                     </div>
                                 </li>
                                 <li class="list-group-item">
@@ -102,10 +140,10 @@
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <textarea name="comment" class="form-control" cols="30"
+                                                    <textarea name="Comment" class="form-control" cols="30"
                                                               required rows="10" id="editor"></textarea>
-                                                    <input type="hidden" value="{{Auth::user()->id}}" name="User_id">
-                                                    <input type="hidden" value="{{$todo->id}}" name="Todo_id">
+                                                    <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
+                                                    <input type="hidden" value="{{$tsk->id}}" name="todo_id">
                                                 </div>
                                             </div>
                                         </div>
@@ -115,29 +153,26 @@
                                     </form>
                                 </li>
                                 <li class="list-group-item">
-                                    <b> Comment</b>
+                                   <h2><b> Comments</b></h2> 
                                     @foreach($comment as $comment)
                                         <div class="profile-desc-">
+                                            <img style="width:30px;" src="{{asset('Uploads/UserImage/'.$comment->User['image'])}}">
+                                            <b>{{$comment->User['name']}} :</b> <i>{!! $comment->Comment !!} </i>
                                             <br>
+                                            <i class="pull-right"> {{$comment->created_at}}</i>
                                             <hr>
-                                            {{$comment->created_at}}
-                                            <br>
-                                            <img style="width:30px;" src="{{asset('Uploads/users/thumbnails/'.$comment->User['image'])}}">
-                                            {{$comment->User['name']}}:
-                                            <br>
-                                            {!! $comment->Comment !!}
-
                                         </div>
                                     @endforeach
-                                </li>
-                            </ul>
+                                </li>    
+                            </ul>                           
+                         
                         </div>
                     </div>
-                        </div>
-                    </div>
-                </div>
+                </div>                  
             </div>
         </div>
+    </div>
+    </div>
     </div>
     <!-- end page content -->
 

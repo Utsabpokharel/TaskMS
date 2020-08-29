@@ -46,10 +46,10 @@
 							<!-- /.col -->
 							<div class="col-xl-3 col-md-6 col-12">
 								<div class="info-box bg-b-yellow">
-									<span class="info-box-icon push-bottom"><i class="material-icons">work</i></span>
+									<span class="info-box-icon push-bottom"><i class="material-icons">group</i></span>
 									<div class="info-box-content">
-										<span class="info-box-text">Task <br> Pending</span>
-										<span class="info-box-number">{{$pending}}</span>										
+										<span class="info-box-text">Total <br> Users</span>
+										<span class="info-box-number">{{$users}}</span>										
 									</div>
 									<!-- /.info-box-content -->
 								</div>
@@ -61,8 +61,8 @@
 									<span class="info-box-icon push-bottom"><i
 											class="material-icons">work</i></span>
 									<div class="info-box-content">
-										<span class="info-box-text">Task <br> Completed</span>
-										<span class="info-box-number">{{$completed}}</span>
+										<span class="info-box-text">Total Tasks<br>Assigned</span>
+										<span class="info-box-number">{{$task}}</span>
 									</div>
 									<!-- /.info-box-content -->
 								</div>

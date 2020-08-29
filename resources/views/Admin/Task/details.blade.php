@@ -29,6 +29,7 @@
                     <div class="card">
                         <div class="card-head card-topline-aqua">
                             <header>Task Detail</header>
+                            <a class="parent-item pull-right btn btn-sm btn-circle blue" href="{{ route('task.index')}}">Back</a>
                         </div>
                         <div class="card-body padding height-9">
                             <ul class="list-group list-group-unbordered">
@@ -118,12 +119,51 @@
                                         @endif
                                     </div>
                                 </li>
+                                @if($tsk->completedDate)
+                                    <li class="list-group-item">
+                                        <b>Completed Date</b>
+                                        <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->completedDate}}</div>
+                                    </li>
+                                @endif
                                 <li class="list-group-item">
                                     <b>Remarks</b>
                                     <div class="profile-desc-item pull-right" style="color:gray">
                                     {{$tsk->remarks}} 
                                     </div>
-                                </li>   
+                                </li>  
+                                <li class="list-group-item">
+                                    <b>Add Comment</b>
+                                    <form  action="{{route('comment.store')}}" method="post" id="form_sample_2"
+                                           class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <div class="form-group row  margin-top-20">
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <textarea name="Comment" class="form-control" cols="30"
+                                                              required rows="10" id="editor"></textarea>
+                                                    <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
+                                                    <input type="hidden" value="{{$tsk->id}}" name="todo_id">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div >
+                                            <button type="submit" class="btn btn-info m-r-20">Submit</button>
+                                        </div>
+                                    </form>
+                                </li>
+                                <li class="list-group-item">
+                                <h2><b> Comments</b></h2> 
+                                    @foreach($comment as $comment)
+                                        <div class="profile-desc-">
+                                            <img style="width:30px;" src="{{asset('Uploads/UserImage/'.$comment->User['image'])}}">
+                                            <b>{{$comment->User['name']}} :</b> <i>{!! $comment->Comment !!} </i>
+                                            <br>
+                                            <i class="pull-right"> {{$comment->created_at}}</i>
+                                            <hr>
+                                        </div>
+                                    @endforeach
+                                </li> 
                             </ul>                           
                          
                         </div>

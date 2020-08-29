@@ -8,6 +8,7 @@ use App\role;
 use App\department;
 use App\toDo;
 use App\allUser;
+use App\comment;
 use App\Mail\TaskMail;
 use App\Mail\TaskCompleteMail;
 use App\Http\Requests\taskValidator;
@@ -21,7 +22,15 @@ class toDosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+   
+    protected $Comment = null;
+
+    public function __construct(comment $Comment)
+    {
+        
+        $this->Comment = $Comment;
+    }
+
     public function index()
     {
         // $this->toDo = $this->toDo->get();
@@ -31,8 +40,8 @@ class toDosController extends Controller
 
         $superAdmin = allUser::where('role_id', '=', $superAdmin->id)->get();
         $employee = allUser::where('role_id', '=', $employee->id)->get();
-        $tasks = toDo::orderBy('id', 'desc')->get();
-        return view('Admin.Task.view',compact('tasks','employee'));
+        
+        return view('Admin.Task.view',compact('tasks','employee',));
     }
 
     /**
@@ -117,7 +126,9 @@ class toDosController extends Controller
         // $employee = allUser::where('role_id', '=', $employee->id)->get();
         // $tsk = toDo::orderBy('id', 'desc')->get();
         $tsk = toDo::findOrFail($id);
-        return view('Admin.Task.details',compact('tsk'));
+        $comment = comment::where('todo_id',$id)->get();
+        // dd($comment);
+        return view('Admin.Task.details',compact('tsk','comment'));
     }
 
     /**
@@ -206,7 +217,7 @@ class toDosController extends Controller
             }     
             return redirect()->back()->with('success', 'Task Status changed');
         } else {
-            request()->session()->flash('error', 'sorry there was an error Re_Assigning Task');
+            request()->session()->with('error', 'sorry there was an error Re_Assigning Task');
         }
         
     }
@@ -232,6 +243,7 @@ class toDosController extends Controller
         $user=@Auth::user();
         $d=Carbon::now();
         $todo = toDo::findOrFail($id);
+        $todo->status = 0;
         $todo->reAssignedTo = $request->reAssignedTo;
         $todo->reAssignedDate = $request->reAssignedDate;
         $todo->reDeadline = $request->reDeadline;

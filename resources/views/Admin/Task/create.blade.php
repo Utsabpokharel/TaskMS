@@ -29,6 +29,15 @@
 										<i class="material-icons">more_vert</i>
 							</button>
                         </div>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div class="card-body" id="bar-parent2">
                             <form action="{{route('task.store')}}" method="post" id="form_sample_2" class="form-horizontal" 
 							enctype="multipart/form-data" autocomplete="on"> 
@@ -41,7 +50,13 @@
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <input type="text" class="form-control" required name="title" value="{{old('title','')}}"/></div>
+                                                <input type="text" class="form-control @error('title') is-invalid @enderror" required name="title" value="{{old('title','')}}"/>
+                                                    @error('title')
+														<span class="invalid-feedback" role="alert">
+															<strong>{{$message}}</strong>
+														</span>
+													@enderror	
+                                            </div>
                                         </div>
                                     </div>
 
@@ -52,7 +67,12 @@
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <textarea name="description" class="form-control textarea" required rows="10">{{old('description','')}}</textarea>
+                                                <textarea name="description" class="form-control textarea @error('description') is-invalid @enderror" required rows="10">{{old('description','')}}</textarea>
+                                                @error('description')
+														<span class="invalid-feedback" role="alert">
+															<strong>{{$message}}</strong>
+														</span>
+												@enderror	
                                             </div>
                                         </div>
                                     </div>
@@ -79,10 +99,15 @@
                                             <span class="required"> * </span>
                                         </label>
                                         <div class="col-md-8">
-                                            <div class="input-append date form_date" data-date-format="yyyy-mm-dd">
-                                                <input size="65" type="text" required readonly name="deadline" value="{{old('deadline','')}}">
-                                                <span class="add-on"><i class="fa fa-remove icon-remove"></i></span>
-                                                <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                            <div class="input-append date form_date @error('deadline') is-invalid @enderror" data-date-format="yyyy-mm-dd">
+                                                <input class="@error('deadline') is-invalid @enderror" size="65" type="text" required readonly name="deadline" value="{{old('deadline','')}}">
+                                                <span class="add-on @error('deadline') is-invalid @enderror"><i class="fa fa-remove icon-remove"></i></span>
+                                                <span class="add-on @error('deadline') is-invalid @enderror"><i class="fa fa-calendar"></i></span>
+                                                @error('deadline')
+														<span class="invalid-feedback" role="alert">
+															<strong>{{$message}}</strong>
+														</span>
+												@enderror	
                                             </div>
                                         </div>
                                     </div>
@@ -107,11 +132,17 @@
 
 									<div class="form-group row margin-top-20">
                                         	<label class="control-label col-md-3">Attached File
-                                           		<span class="required"> * </span>
+                                           		<span class="required">  </span>
                                        		</label>
                                        		<div class="col-md-8">
                                             	<div class="input-icon right">
-                                                	<input type="file" class="form-control bg-light" name="fileUpload" value="{{old('fileUpload','')}}"/></div>
+                                                	<input type="file" class="form-control bg-light @error('fileUpload') is-invalid @enderror" name="fileUpload" value="{{old('fileUpload','')}}"/>
+                                                    @error('fileUpload')
+														<span class="invalid-feedback" role="alert">
+															<strong>{{$message}}</strong>
+														</span>
+													@enderror	
+                                                </div>
                                         		</div>
                                     		</div>
 									</div>
@@ -123,8 +154,13 @@
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <textarea name="remarks" class="form-control textarea" cols="auto"
+                                                <textarea name="remarks" class="form-control textarea @error('remarks') is-invalid @enderror" cols="auto"
                                                 required rows="10">{{old('remarks','')}}</textarea>
+                                                @error('remarks')
+														<span class="invalid-feedback" role="alert">
+															<strong>{{$message}}</strong>
+														</span>
+													@enderror	
                                             </div>
                                         </div>
                                     </div>

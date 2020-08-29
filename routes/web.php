@@ -46,29 +46,33 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
 
     //User Personal Details
     Route::resource('/personal', 'personalDetailsController');
+     //re-assign
+     Route::put('//Todo-reassign/{id}','toDosController@reaassign')->name('reaassign');
+     //task re-assign
+     Route::put('/Todo-ReAssign/{id}', 'toDosController@ReAssign')->name('ReAssign');
+    
 });
-
-Route::group(['middleware' => ['super']], function () {
-    //roles
-    Route::resource('/roles','rolesController');
-    //departments
-    Route::resource('/department','departmentsController');
-    // users
-    Route::resource('/user','allUsersController');
-    // tasks
-    Route::resource('/task','toDosController');
-
-    //re-assign
-    Route::put('//Todo-reassign/{id}','toDosController@reaassign')->name('reaassign');
-    //task re-assign
-    Route::put('/Todo-ReAssign/{id}', 'toDosController@ReAssign')->name('ReAssign');
+Route::group(['middleware' => ['adminn']], function () {
+    Route::group(['middleware' => ['super']], function () {
+        //roles
+        Route::resource('/roles','rolesController');
+        //departments
+        Route::resource('/department','departmentsController');
+        // users
+        Route::resource('/user','allUsersController');
+        // tasks
+        Route::resource('/task','toDosController');
+    });
 });
-
 Route::group(['middleware' => ['employee']], function () {
     Route::get('/Employee', 'employeeController@GetList')->name('Employee');
 
-    Route::get('/EmployeeDetails/{id}', 'AdminControllers\EmployeeController@GetTaskDetail')->name('EmployeeDetails');
+    Route::get('/EmployeeDetails/{id}', 'EmployeeController@GetTaskDetail')->name('EmployeeDetails');
+});    
+Route::group(['middleware' => ['comment']], function () {
 
+     //comment
+     Route::resource('/comment' , 'commentsController');
     //pending
     Route::put('/Todo-Pending/{id}','toDosController@pending')->name('pending');
     //complete

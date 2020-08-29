@@ -6,30 +6,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\toDo;
 use App\allUser;
+use App\comment;
 
 class employeeController extends Controller
 {
     
-    // protected $toDo = null;
-    // protected $All_User = null;
-    // // protected $Comment = null;
+    protected $Todo = null;
+    protected $All_User = null;
+    protected $Comment = null;
 
-    // public function __construct(toDo $toDo, allUser $All_User)
-    // {
-    //     $this->toDo = $toDo;
-    //     $this->$All_User = $All_User;
-       
-    // }
+    public function __construct(toDo $Todo, allUser $All_User, comment $Comment)
+    {
+        $this->toDo = $Todo;
+        $this->allUser = $All_User;
+        $this->Comment = $Comment;
+    }
 
     public function GetList()
     {
-        // $user=Auth::user()->id;
-        $todo = toDo::where('id','desc')->get();
-        /*dd($user);*/ 
-        // $todo = toDo::where('assignedTo', '=' , $user->assignedTo)->get();
-        dd($todo);
-        // $this->toDo=$this->toDo->where('assignedTo',$user||'reAssignedTo',$user)->get();
-        return view('Admin/TaskView/list',compact('todo'));
+        $user=@Auth::user()->id;
+        /*dd($user);*/
+        $this->toDo=$this->toDo->where('assignedTo',$user)
+                                ->orWhere('reAssignedTo',$user)->get();
+        
+        // dd($this->toDo);
+        return view('Admin/TaskView/list')->with('todo',$this->toDo);
     }
 
     public function GetTaskDetail(Request $request)
@@ -37,7 +38,7 @@ class employeeController extends Controller
         $user=@Auth::user()->id;
         $this->toDo=$this->toDo->where('id',$request->id)->first();
         $id=$this->toDo->id;
-        
-        return view('Admin/TaskView/Detail')->with('todo',$this->toDo);
+        $comment=comment::where('todo_id',$id)->get();
+        return view('Admin/TaskView/Detail',compact('comment'))->with('tsk',$this->toDo);
     }
 }

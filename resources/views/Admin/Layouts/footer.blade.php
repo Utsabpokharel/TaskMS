@@ -57,7 +57,8 @@
 	<script src="assets/plugins/select2/js/select2.js"></script>
     <script src="assets/js/pages/select2/select2-init.js"></script>
 	<!-- end js include path -->
-
+	<!-- tags-input -->
+	<script src="{{asset('assets/js/bootstrap-tagsinput.js')}}"></script>
     <!-- sweetalert -->
     @include('sweetalert::alert')
 </body>

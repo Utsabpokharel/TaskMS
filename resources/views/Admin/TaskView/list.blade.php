@@ -22,8 +22,7 @@
 		<div class="col-md-12 col-sm-12">
 			<div class="card card-box">
 				<div class="card-head">
-					<header>All Tasks</header>
-                    <a class="parent-item pull-right btn btn-primary" href="{{ route('task.create')}}">Add +</a>									
+					<header>All Tasks</header>	
 				</div>
 				<div class="card-body " id="bar-parent">
     				<table id="exportTable" class="display nowrap" style="width:100%">
@@ -31,55 +30,43 @@
 							<tr>
 								<th>#</th>
 								<th>Title</th>
-                                <th>Assigned To</th>
+                                <!-- <th>Assigned To</th> -->
                                 <th>Priority Level</th>
-								<th>assignedBy</th>
-                                <th>Deadline</th>
+								<th>Assigned By</th>
                                 <th>Status</th>
-								<th>Actions</th> 
-                                <th>Re-Assigned To</th>
+                                
                                        
                                    
                                 																									
 							</tr>
 						</thead>
 						<tbody>	
-                        @if(isset($tasks))
-                            @foreach($tasks as $tsk)
+                        @if(isset($todo))
+                            @foreach($todo as $tsk)
                                     <tr>
                                         <td>{{$tsk->id}}</td>
-                                        <td><a class="parent-item" href="{{route('task.show',[$tsk->id])}}"> {{$tsk->title}} </a></td>                                        
-                                        <td>{{$tsk->employee['name']}}</td>                                        
+                                        <td><a class="parent-item" href="{{route('EmployeeDetails',[$tsk->id])}}"> {{$tsk->title}} </a></td>                                        
+                                        <!-- <td>{{$tsk->employee['name']}}</td>                                         -->
                                         <td>{{$tsk->task_priority}}</td> 
+                                        @if($tsk->reAssignedTo == Auth::user()->id)
+                                        <td>{{$tsk->ReAssignedBy}}</td>
+                                        @else
                                         <td>{{$tsk->assignedBy}}</td>
-                                        <td>{{$tsk->deadline}}</td>
+                                        @endif
                                         <td class="valigntop">
                                             <div class="btn-group">
-                                                <button
-                                                        class="btn btn-xs  dropdown-toggle no-margin"
-                                                        type="button" data-toggle="dropdown"
+                                                    @if($tsk->status==1)
+                                                        Completed
+                                                    @else
+                                                    <button class="btn btn-xs  dropdown-toggle no-margin" type="button" data-toggle="dropdown"
                                                         aria-expanded="false">
                                                     @if($tsk->status==0)
                                                         Pending
-                                                    @else
-                                                        Completed
+                                                    
                                                     @endif
-                                                    <i class="fa fa-angle-down"></i>
-                                                </button>
-                                                <ul class="dropdown-menu pull-left" role="menu">                                                   
-                                                    <li>
-                                                        <a href="javascript:;">
-                                                            <form action="{{route('pending',$tsk->id)}}"
-                                                                  method="post">
-                                                                {{csrf_field()}}
-                                                                <input type="hidden" name="_method" value="PUT">
-                                                                <button class="btn "
-                                                                        type="submit"><span
-                                                                            class=""></span> Pending
-                                                                </button>
-                                                            </form>
-                                                        </a>
-                                                    </li>
+                                                    </button> 
+                                                    <i class="fa fa-angle-down"></i>  
+                                                    <ul class="dropdown-menu pull-left" role="menu"> 
                                                     <li>
                                                         <a href="javascript:;">
                                                             <form action="{{route('complete',$tsk->id)}}"
@@ -105,41 +92,12 @@
                                                             </form>
                                                         </a>
                                                     </li>
+                                                @endif    
 
                                                     
                                                 </ul>
                                             </div>
                                         </td> 
-                                        <!-- @if($tsk->status==0)
-                                        <td>Pending</td>
-                                        @elseif($tsk->status==1)
-                                        <td>Completed</td>
-                                        @else
-                                        <td>Re-Assigned</td>
-                                        @endif -->
-                                        <td class="text-left">
-
-                                            <form action="{{ route('task.edit', $tsk->id)}}" method="GET"
-                                                  style="display: inline-block">
-                                                {{csrf_field()}}
-                                                {{method_field('PUT')}}
-                                                <button class="btn btn-primary btn-sm" type="submit"><span
-                                                            class="fa fa-pencil"></span></button>
-                                            </form>
-                                            
-                                            <form action="{{ route('task.destroy', $tsk->id)}}" method="post"
-                                                  style="display: inline-block">
-                                                {{csrf_field()}}
-                                                {{method_field('DELETE')}}
-                                                <button class="btn btn-danger btn-sm" type="submit"><span
-                                                            class="fa fa-trash-o"></span></button>
-                                            </form>
-                                        </td>
-                                        @if($tsk->reAssignedTo)
-                                                <td>{{@$tsk->reassignto['name']}}</td>
-                                        @else
-                                            <td>None</td>                                                                                                                                              -->
-                                        @endif
                                     </tr>
                             @endforeach  
                         @endif                            																										
@@ -148,13 +106,10 @@
     						<tr>
                                 <th>#</th>
 								<th>Title</th>
-                                <th>Assigned To</th>
                                 <th>Priority Level</th>
-								<th>assignedBy</th>
-                                <th>Deadline</th>
+								<th>Assigned By</th>
                                 <th>Status</th>
-								<th>Actions</th>
-                                <th>Re-Assigned To</th>
+                               
 							</tr>
 						</tfoot>
 					</table>
