@@ -39,6 +39,9 @@
 	 <!--select2-->
 	<link href="../assets/plugins/select2/css/select2.css" rel="stylesheet" type="text/css" />
     <link href="../assets/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<!-- tag-inputs -->
+	<link rel="stylesheet" href="{{asset('assets/css/bootstrap-tagsinput.css')}}" type="text/css">
+	
 </head>
 <!-- END HEAD -->
 @endsection

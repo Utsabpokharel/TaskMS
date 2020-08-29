@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\comment;
 
 class commentsController extends Controller
 {
@@ -10,10 +11,18 @@ class commentsController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * 
      */
+    protected $comment=null;
+
+    public function __construct(comment $comment)
+    {
+        $this->comment = $comment;
+    }
     public function index()
     {
-        //
+        // $comment = comment::findOrFail($id);
+        // return view('Admin.Task.detail',compact('comment'));
     }
 
     /**
@@ -34,7 +43,11 @@ class commentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $this->comment->fill($data);
+        $success = $this->comment->save();
+        // dd($success);
+        return redirect()->back();
     }
 
     /**

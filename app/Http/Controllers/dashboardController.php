@@ -24,10 +24,12 @@ class dashboardController extends Controller
         // return view('Admin/index');  
         $user=@Auth::user()->role_id;
         $user_id=@Auth::user()->id;
-        /*dd($user_id);*/
-        $pending=toDo::where('assignedTo',$user_id)->where('status','0')->get()->count();
-        $completed=toDo::where('assignedTo',$user_id)->where('status','1')->get()->count();
-        $all=toDo::get()->where('assignedTo',$user_id)->count();
+        // dd($user);
+        $pending=toDo::where('assignedTo',$user_id)->orWhere('reAssignedTo',$user)->where('status','=','0')->get()->count();
+        // dd($pending);
+        $completed=toDo::where('assignedTo',$user_id)->orWhere('reAssignedTo',$user)->where('status','=','1')->get()->count();
+        // dd($completed);
+        $all=toDo::where('assignedTo',$user_id)->orWhere('reAssignedTo',$user_id)->get()->count();
         // $this->Todo=$this->Todo->get();
         $todo = toDo::orderBy('id','desc')->get();
         $roles = role::orderBy('id','desc')->where('id',$user)->first();
@@ -36,7 +38,9 @@ class dashboardController extends Controller
         $emp_id = role::where('name', '=', 'employee')->first();
         $admins = allUser::where('role_id', '=', $admin_id->id)->get()->count();       
         $employee = allUser::where('role_id', '=', $emp_id->id)->get()->count();
-        return view('Admin/index',compact('pending','completed','all','todo','roles','admins','employee'));
+        $users=allUser::orderBy('id','desc')->get()->count();
+        $task =toDo::orderBy('id','desc')->get()->count();
+        return view('Admin/index',compact('pending','completed','all','todo','roles','admins','employee','users','task'));
       
     }
 }
