@@ -129,6 +129,7 @@
 											</tr>
 										</tfoot>
 									</table>
+									<div class="pull-right">{{$todo->links()}}</div>
 								</div>
 							</div>
 						</div>
@@ -172,6 +173,8 @@
 													@endforeach	
 													</tbody>
 												</table>
+												<div class="pull-right">{{$allUsers->links()}}</div>
+												
 											</div>											
 										</div>										
 									</div>

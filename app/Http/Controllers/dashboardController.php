@@ -33,7 +33,7 @@ class dashboardController extends Controller
         // dd($completed);
         $all=toDo::where('assignedTo',$user_id)->orWhere('reAssignedTo',$user_id)->get()->count();
         // $this->Todo=$this->Todo->get();
-        $todo = toDo::orderBy('id','desc')->get();
+        $todo = toDo::orderBy('id','desc')->paginate(5);
         $roles = role::orderBy('id','desc')->where('id',$user)->first();
         // $this->Roles=$this->Roles->where('id',$user)->first();
         $admin_id = role::where('name', '=', 'admin')->first();       
@@ -41,7 +41,7 @@ class dashboardController extends Controller
         $admins = allUser::where('role_id', '=', $admin_id->id)->get()->count();       
         $employee = allUser::where('role_id', '=', $emp_id->id)->get()->count();
 
-        $allUsers =allUser::orderBy('id','desc')->get();
+        $allUsers =allUser::orderBy('id','desc')->paginate(3);
         $users=allUser::orderBy('id','desc')->get()->count();
         $task =toDo::orderBy('id','desc')->get()->count();
         $admin_task =toDo::orderBy('id','desc')->where('assignedBy',$user_id)->get()->count();
