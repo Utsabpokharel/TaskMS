@@ -41,4 +41,23 @@ class employeeController extends Controller
         $comment=comment::where('todo_id',$id)->get();
         return view('Admin/TaskView/Detail',compact('comment'))->with('tsk',$this->toDo);
     }
+
+    public function GetAdminList()
+    {
+        $user=@Auth::user()->id;
+        /*dd($user);*/
+        $this->toDo=$this->toDo->where('assignedBy',$user)->get();
+        
+        // dd($this->toDo);
+        return view('Admin/TaskView/list')->with('todo',$this->toDo);
+    }
+
+    public function GetAdminTaskDetail(Request $request)
+    {
+        $user=@Auth::user()->id;
+        $this->toDo=$this->toDo->where('id',$request->id)->first();
+        $id=$this->toDo->id;
+        $comment=comment::where('todo_id',$id)->get();
+        return view('Admin/TaskView/Detail',compact('comment'))->with('tsk',$this->toDo);
+    }
 }

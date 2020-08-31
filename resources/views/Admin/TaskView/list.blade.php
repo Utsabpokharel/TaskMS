@@ -33,6 +33,7 @@
                                 <!-- <th>Assigned To</th> -->
                                 <th>Priority Level</th>
 								<th>Assigned By</th>
+                                <th>Assigned To</th>
                                 <th>Status</th>
                                 
                                        
@@ -45,14 +46,18 @@
                             @foreach($todo as $tsk)
                                     <tr>
                                         <td>{{$tsk->id}}</td>
-                                        <td><a class="parent-item" href="{{route('EmployeeDetails',[$tsk->id])}}"> {{$tsk->title}} </a></td>                                        
-                                        <!-- <td>{{$tsk->employee['name']}}</td>                                         -->
+                                        @if(Auth::user()->id==2)
+                                        <td><a class="parent-item" href="{{route('TaskDetails',[$tsk->id])}}"> {{$tsk->title}} </a></td>
+                                        @else
+                                            <td><a class="parent-item" href="{{route('EmployeeDetails',[$tsk->id])}}"> {{$tsk->title}} </a></td>
+                                        @endif
                                         <td>{{$tsk->task_priority}}</td> 
                                         @if($tsk->reAssignedTo == Auth::user()->id)
                                         <td>{{$tsk->ReAssignedBy}}</td>
                                         @else
-                                        <td>{{$tsk->assignedBy}}</td>
+                                        <td>{{$tsk->superadmin['name']}}</td>
                                         @endif
+                                        <td>{{$tsk->employee['name']}}</td>
                                         <td class="valigntop">
                                             <div class="btn-group">
                                                     @if($tsk->status==1)
@@ -108,6 +113,7 @@
 								<th>Title</th>
                                 <th>Priority Level</th>
 								<th>Assigned By</th>
+                                <th>Assigned To</th>
                                 <th>Status</th>
                                
 							</tr>
