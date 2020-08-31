@@ -51,7 +51,7 @@
                                         <td><a class="parent-item" href="{{route('task.show',[$tsk->id])}}"> {{$tsk->title}} </a></td>                                        
                                         <td>{{$tsk->employee['name']}}</td>                                        
                                         <td>{{$tsk->task_priority}}</td> 
-                                        <td>{{$tsk->assignedBy}}</td>
+                                        <td>{{$tsk->superadmin['name']}}</td>
                                         <td>{{$tsk->deadline}}</td>
                                         <td class="valigntop">
                                             <div class="btn-group">
@@ -145,7 +145,7 @@
                                         @if($tsk->reAssignedTo)
                                                 <td>{{@$tsk->reassignto['name']}}</td>
                                         @else
-                                            <td>None</td>                                                                                                                                              -->
+                                            <td>None</td>                                                                                                                                             
                                         @endif
                                     </tr>
                             @endforeach  

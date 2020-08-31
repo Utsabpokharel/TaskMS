@@ -86,8 +86,10 @@
                                                 <i class="fa"></i>
                                                 <select class="form-control input-height" required name="assignedTo">
                                                     <option value="" disabled selected>--Select Staffs--</option>
-                                                    @foreach($employee as $employ)
-                                                    <option value="{{$employ->id}}">{{$employ->name}}</option>
+                                                    @foreach($staff as $employ)
+                                                    @foreach($employ as $staff)
+                                                    <option value="{{$staff->id}}">{{$staff->name}}</option>
+                                                    @endforeach
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -176,7 +178,7 @@
                                            required readonly name="assignedDate"/>
                                     {{-- End--}}
                                     {{--Assigned by--}}
-                                    <input type="hidden" class="form-control" value="{{Auth::user()->name}}"
+                                    <input type="hidden" class="form-control" value="{{Auth::user()->id}}"
                                            required readonly name="assignedBy"/></div>
                                     {{--End--}}
                                     

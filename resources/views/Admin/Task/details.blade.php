@@ -55,7 +55,7 @@
 
                                 <li class="list-group-item">
                                     <b>Assigned By</b>
-                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->assignedBy}}</div>
+                                    <div class="profile-desc-item pull-right" style="color:gray">{{$tsk->superadmin['name']}}</div>
                                 </li>
 
                                 <li class="list-group-item">

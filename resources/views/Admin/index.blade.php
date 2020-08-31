@@ -145,45 +145,31 @@
 										<div class="mdl-tabs__panel is-active p-t-20" id="tab4-panel">
 											<div class="table-responsive">
 												<table class="table" id="exportTable">
-													<tbody>
-														<tr>
-															<th>Image</th>
+													<thead>
+													<th>Image</th>
 															<th>Employee Name</th>
-															<th>Date</th>
-															<th>Status</th>
-															<th>Ammount</th>
-															<th>Transaction ID</th>
-														</tr>
+															<th>Joined Date</th>
+															<th>Salary Status</th>
+															<th>Basic Salary</th>
+															<th>Unpaid Amount</th>
+													</thead>
+													<tbody>
+													@foreach($allUsers as $usr)
 														<tr>
-															<td class="patient-img sorting_1">
-																<img src="../assets/img/std/std6.jpg" alt="">
+														@if($usr->image)
+															<td>
+																<img src="{{asset('Uploads/UserImage/'.$usr->image)}}" alt="User image" width="85" height="75">
 															</td>
-															<td>John Deo</td>
-															<td>05-01-2017</td>
-															<td><span class="label label-danger">Unpaid</span></td>
-															<td>1200$</td>
-															<td>#7234486</td>
+														@else
+															<td>No image available</td>
+														@endif      
+															<td>{{$usr->name}}</td>
+															<td>{{$usr->joined_date}}</td>
+															<td></td>
+															<td></td>
+															<td></td>
 														</tr>
-														<tr>
-															<td class="patient-img sorting_1">
-																<img src="../assets/img/std/std4.jpg" alt="">
-															</td>
-															<td>Eugine Turner</td>
-															<td>04-01-2017</td>
-															<td><span class="label label-success">Paid</span></td>
-															<td>1400$</td>
-															<td>#7234417</td>
-														</tr>
-														<tr>
-															<td class="patient-img sorting_1">
-																<img src="../assets/img/std/std2.jpg" alt="">
-															</td>
-															<td>Jacqueline Howell</td>
-															<td>03-01-2017</td>
-															<td><span class="label label-warning">Pending</span></td>
-															<td>1100$</td>
-															<td>#7234454</td>
-														</tr>
+													@endforeach	
 													</tbody>
 												</table>
 											</div>											
@@ -237,29 +223,70 @@
                             <!-- /.info-box -->
                         </div>
                         <!-- /.col -->
-                    {{--<div class="col-xl-3 col-md-6 col-12">
-                        <div class="info-box bg-b-pink">
-									<span class="info-box-icon push-bottom"><i
-                                                class="material-icons">monetization_on</i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Fees Collection</span>
-                                <span class="info-box-number">13,921</span><span>$</span>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width: 50%"></div>
-                                </div>
-                                <span class="progress-description">
-											50% Increase in 28 Days
-										</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>--}}
+                    
                     <!-- /.col -->
                     </div>
                 </div>
         @endif
             <!-- end widget -->
+			@if(Auth::user()->role_id==2)
+				<h2 class="card-head">Admin Dashboard</h2> 
+                	<div class="state-overview">
+                    	<div class="row">
+							<div class="col-xl-3 col-md-6 col-12">
+								<div class="info-box bg-b-pink">
+									<span class="info-box-icon push-bottom"><i class="material-icons">group</i></span>
+									<div class="info-box-content">
+										<span class="info-box-text">Task <br> Received</span>
+										<span class="info-box-number">{{$received}}</span>										
+									</div>
+									<!-- /.info-box-content -->
+								</div>
+								<!-- /.info-box -->
+							</div>
+
+							<div class="col-xl-3 col-md-6 col-12">
+								<div class="info-box bg-b-yellow">
+									<span class="info-box-icon push-bottom"><i
+											class="material-icons">work</i></span>
+									<div class="info-box-content">
+										<span class="info-box-text">Tasks<br>Pending</span>
+										<span class="info-box-number">{{$pending}}</span>
+									</div>
+									<!-- /.info-box-content -->
+								</div>
+								<!-- /.info-box -->
+							</div>
+							<!-- /.col -->
+
+							<div class="col-xl-3 col-md-6 col-12">
+								<div class="info-box bg-b-green">
+									<span class="info-box-icon push-bottom"><i
+											class="material-icons">work</i></span>
+									<div class="info-box-content">
+										<span class="info-box-text">Tasks<br>Completed</span>
+										<span class="info-box-number">{{$completed}}</span>
+									</div>
+									<!-- /.info-box-content -->
+								</div>
+								<!-- /.info-box -->
+							</div>
+
+							<div class="col-xl-3 col-md-6 col-12">
+								<div class="info-box bg-b-blue">
+									<span class="info-box-icon push-bottom"><i
+											class="material-icons">work</i></span>
+									<div class="info-box-content">
+										<span class="info-box-text">Total Tasks<br>Assigned</span>
+										<span class="info-box-number">{{$admin_task}}</span>
+									</div>
+									<!-- /.info-box-content -->
+								</div>
+								<!-- /.info-box -->
+							</div>
+						</div>
+					</div>			
+				@endif	
 
         </div>
     </div>

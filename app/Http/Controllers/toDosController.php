@@ -56,11 +56,15 @@ class toDosController extends Controller
         $d=Carbon::now();
         $superAdmin= role::where('name','=','super_admin')->first();
         $employee= role::where('name','=','employee')->first();
+        $admin =role::where('name','=','admin')->first();
 
         $superAdmin= allUser::where('role_id','=',$superAdmin->id)->get();
         $employee= allUser::where('role_id','=',$employee->id)->get();
+        $admin= allUser::where('role_id','=',$admin->id)->get();
 
-        return view('Admin.Task.create',compact('roles','depart','employee','d','superAdmin'));
+        $staff =[$employee,$admin];
+
+        return view('Admin.Task.create',compact('roles','depart','d','superAdmin','staff'));
     }
 
     /**
@@ -104,7 +108,11 @@ class toDosController extends Controller
         Mail::to($todo->employee->email)->send(new TaskMail());  
        
         if($todos){
+            if(Auth::user()->roles->name == 'admin'){
+                return redirect()->route('assignTask')->with('success','New Task Created Successfully');
+            }else{
             return redirect()->route('task.index')->with('success','New Task Created Successfully');
+            }
         }else{
             return redirect()->back()->with('error','Oops!!! some error occurred');
         }
@@ -148,6 +156,7 @@ class toDosController extends Controller
 
         $superAdmin= allUser::where('role_id','=',$superAdmin->id)->get();
         $employee= allUser::where('role_id','=',$employee->id)->get();
+       
         return view('Admin.Task.edit',compact('roles','depart','employee','d','superAdmin','tasks'));
     }
 
@@ -163,9 +172,11 @@ class toDosController extends Controller
         $tasks = toDo::find($id);
         $update = $tasks->save();
         if ($update) {
-           
+            if(Auth::user()->roles->name == 'admin'){
+                return redirect()->route('assignTask')->with('success','Selected Task updated successfully');
+            }else{
             return redirect()->route('task.index')->with('success','Selected Task updated successfully');
-
+            }
         } else {
            
             return redirect()->back()->with('error','Sorry the changes couldn\'t be made');

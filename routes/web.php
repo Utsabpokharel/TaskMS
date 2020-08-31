@@ -52,7 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
      Route::put('/Todo-ReAssign/{id}', 'toDosController@ReAssign')->name('ReAssign');
     
 });
-Route::group(['middleware' => ['adminn']], function () {
+
     Route::group(['middleware' => ['super']], function () {
         //roles
         Route::resource('/roles','rolesController');
@@ -63,11 +63,17 @@ Route::group(['middleware' => ['adminn']], function () {
         // tasks
         Route::resource('/task','toDosController');
     });
+Route::group(['middleware' => ['adminn']], function () {    
+    Route::resource('/task','toDosController')->except(['index']);
+    Route::get('/Admin', 'employeeController@GetList')->name('adminTask');
+    Route::get('/AdminAssigned', 'employeeController@GetAdminList')->name('assignTask');
+    Route::get('/Details/{id}', 'employeeController@GetAdminTaskDetail')->name('TaskDetails');
+
 });
 Route::group(['middleware' => ['employee']], function () {
-    Route::get('/Employee', 'employeeController@GetList')->name('Employee');
+    Route::get('/TaskList', 'employeeController@GetList')->name('Employee');
 
-    Route::get('/EmployeeDetails/{id}', 'EmployeeController@GetTaskDetail')->name('EmployeeDetails');
+    Route::get('/TaskDetails/{id}', 'employeeController@GetTaskDetail')->name('EmployeeDetails');
 });    
 Route::group(['middleware' => ['comment']], function () {
 
