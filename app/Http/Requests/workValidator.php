@@ -13,7 +13,7 @@ class workValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class workValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'experience' =>'required|min:10 |max:100',
+            'skills' => 'required|min:10 |max:100',
+            'projects' => 'required|min:10 |max:100'  
         ];
     }
 }

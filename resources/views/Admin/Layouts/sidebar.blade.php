@@ -35,11 +35,6 @@
 							</li>
 						@if(Auth::user()->role_id==1)
 							<li class="nav-item">
-								<a href="#" class="nav-link nav-toggle"> <i class="material-icons">event</i>
-									<span class="title">Event Management</span>
-								</a>
-							</li>
-							<li class="nav-item">
 								<a href="{{route('roles.index')}}" class="nav-link nav-toggle"> <i class="material-icons">person</i>
 									<span class="title">Roles</span> <span class="arrow"></span>
 								</a>
@@ -119,23 +114,6 @@
 									<li class="nav-item">
 										<a href="" class="nav-link "> <span class="title">Add Reports</span></a>
 									</li>									
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="index.html#" class="nav-link nav-toggle"> <i class="material-icons">monetization_on</i>
-									<span class="title">Salary</span> <span class="arrow"></span>
-								</a>
-								<ul class="sub-menu">
-									<li class="nav-item">
-										<a href="" class="nav-link "> <span class="title">Salary Details</span></a>
-									</li>
-									<li class="nav-item">
-										<a href="add_fees.html" class="nav-link "> <span class="title">Add Salary </span></a>
-									</li>									
-									<li class="nav-item">
-										<a href="" class="nav-link "> <span class="title">Salary Receipt</span></a>
-									</li>
-						
 								</ul>
 							</li>
 						@endif	

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\workDetail;
+use App\Http\Requests\workValidator;
 
 class workDetailsController extends Controller
 {
@@ -33,7 +34,7 @@ class workDetailsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(workValidator $request)
     {        
         $wrk = new workDetail([
             'user_id' => $request->user_id,
@@ -80,7 +81,7 @@ class workDetailsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(workValidator $request, $id)
     {
         $wrk = workDetail::find($id);
         $wrk->experience = $request->experience;

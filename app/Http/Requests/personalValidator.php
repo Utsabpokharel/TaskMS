@@ -13,7 +13,7 @@ class personalValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class personalValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'about' =>'required |min:10 |max:100',
+            'address1' => 'required',
+            'address2' => 'required',
+            'phone1' => 'required',
+            'phone2' => 'required',
+            'dob' => 'required', 
+            'ctzn_f' => 'required',
+            'ctzn_b' => 'required'
         ];
     }
 }

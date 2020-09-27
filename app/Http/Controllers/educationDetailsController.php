@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\educationDetail;
+use App\Http\Requests\educationValidator;
 
 class educationDetailsController extends Controller
 {
@@ -33,7 +34,7 @@ class educationDetailsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(educationValidator $request)
     {
         $edu = new educationDetail([
             'user_id' => $request->user_id,
@@ -84,7 +85,7 @@ class educationDetailsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(educationValidator $request, $id)
     {
         $educ = educationDetail::find($id);
 

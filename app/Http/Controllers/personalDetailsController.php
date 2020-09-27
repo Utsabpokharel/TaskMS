@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\personalDetail;
+use App\Http\Requests\personalValidator;
 
 class personalDetailsController extends Controller
 {
@@ -33,7 +34,7 @@ class personalDetailsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(personalValidator $request)
     {
         // dd($request);
         if ($request->hasFile('ctzn_f')) {
@@ -103,6 +104,14 @@ class personalDetailsController extends Controller
     public function update(Request $request, $id)
     {
         $prsnl = personalDetail::find($id);
+        $request->validate([
+            'about' =>'required|min:10 |max:100',
+            'address1' => 'required',
+            'address2' => 'required',
+            'phone1' => 'required',
+            'phone2' => 'required',
+            'dob' => 'required'
+        ]);
         $prsnl->user_id = $request->user_id;
         $prsnl->address1 = $request->address1;
         $prsnl->address2 = $request->address2;

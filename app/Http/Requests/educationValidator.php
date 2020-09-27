@@ -13,7 +13,7 @@ class educationValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class educationValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'inst_name' => 'required',
+            'inst_address' => 'required',
+            'degree' => 'required',
+            'faculty' => 'required',
+            'board' => 'required',
+            'passed_year' => 'required',
+            'division'=> 'required',
         ];
     }
 }
