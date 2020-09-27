@@ -53,7 +53,12 @@
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
                                                           
-                                                            <input type="text" class="form-control" name="inst_name" />
+                                                            <input type="text" class="form-control @error('inst_name') is-invalid @enderror" name="inst_name" value="{{old('inst_name','')}}" />
+                                                            @error('inst_name')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -64,8 +69,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
-                                                                   name="inst_address" />
+                                                            <input type="text" class="form-control @error('inst_address') is-invalid @enderror" name="inst_address" value="{{old('inst_address','')}}"/>
+                                                                   @error('inst_address')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{$message}}</strong>
+                                                                        </span>
+                                                                    @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -76,8 +85,13 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
-                                                                   name="faculty" />
+                                                            <input type="text" class="form-control @error('faculty') is-invalid @enderror"
+                                                                   name="faculty" value="{{old('faculty','')}}"/>
+                                                                    @error('faculty')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{$message}}</strong>
+                                                                        </span>
+                                                                    @enderror
                                                         </div>
                                                         <span>(eg . Science, management, etc.)</span>
                                                     </div>
@@ -90,8 +104,13 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
-                                                                   name="board" />
+                                                            <input type="text" class="form-control @error('board') is-invalid @enderror"
+                                                                   name="board" value="{{old('board','')}}"/>
+                                                                    @error('board')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{$message}}</strong>
+                                                                        </span>
+                                                                    @enderror
                                                         </div>
                                                         <span>(eg . NEB, Government of nepal , etc.)</span>
                                                     </div>
@@ -105,22 +124,32 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
-                                                                   name="degree" />
+                                                            <input type="text" class="form-control @error('degree') is-invalid @enderror"
+                                                                   name="degree" value="{{old('degree','')}}"/>
+                                                                    @error('degree')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{$message}}</strong>
+                                                                        </span>
+                                                                    @enderror
                                                         </div>
                                                         <span>(eg . Masters, Bachelors , etc.)</span>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="control-label col-md-3">Division Obtained
+                                                    <label class="control-label col-md-3">Division/CGPA/GPA
                                                         <span class="required"> * </span>
                                                     </label>
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
-                                                                   name="division" />
+                                                            <input type="text" class="form-control @error('division') is-invalid @enderror"
+                                                                   name="division" value="{{old('division','')}}"/>
+                                                                   @error('division')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{$message}}</strong>
+                                                                        </span>
+                                                                   @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -132,8 +161,12 @@
                                                         <div class="input-icon right">
                                                             <div class="input-height date form_date"
                                                                  data-date-format="yyyy/mm/dd" data-date="{{now()}}">
-                                                                <input size="30" type="text" required="" readonly=""
-                                                                       name="passed_year" aria-required="true">
+                                                                <input class= "@error('passed_year') is-invalid @enderror" size="30" type="text" required readonly name="passed_year" value="{{old('passed_year','')}}" aria-required="true">
+                                                                       @error('passed_year')
+                                                                            <span class="invalid-feedback" role="alert">
+                                                                                <strong>{{$message}}</strong>
+                                                                            </span>
+                                                                        @enderror
                                                                 <span class="add-on"><i
                                                                             class="fa fa-remove icon-remove"></i></span>
                                                                 <span class="add-on"><i
@@ -178,7 +211,12 @@
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
                                                           
-                                                            <input type="text" class="form-control" name="inst_name" value="{{$educ->inst_name}}"/>
+                                                            <input type="text" class="form-control @error('inst_name') is-invalid @enderror" name="inst_name" value="{{$educ->inst_name}}"/>
+                                                            @error('inst_name')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -189,8 +227,13 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control @error('inst_address ') is-invalid @enderror"
                                                                    name="inst_address" value="{{$educ->inst_address}}"/>
+                                                            @error('inst_address ')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -201,8 +244,13 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control @error('faculty') is-invalid @enderror"
                                                                    name="faculty" value="{{$educ->faculty}}"/>
+                                                            @error('faculty')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror       
                                                         </div>
                                                         <span>(eg . Science, management, etc.)</span>
                                                     </div>
@@ -215,8 +263,13 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control @error('board') is-invalid @enderror"
                                                                    name="board" value="{{$educ->board}}"/>
+                                                            @error('board')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror
                                                         </div>
                                                         <span>(eg . NEB, Government of nepal , etc.)</span>
                                                     </div>
@@ -230,8 +283,13 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control @error('degree') is-invalid @enderror"
                                                                    name="degree" value="{{$educ->degree}}"/>
+                                                            @error('degree')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror       
                                                         </div>
                                                         <span>(eg . Masters, Bachelors , etc.)</span>
                                                     </div>
@@ -244,8 +302,13 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control @error('division') is-invalid @enderror"
                                                                    name="division" value="{{$educ->division}}"/>
+                                                            @error('division')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror       
                                                         </div>
                                                     </div>
                                                 </div>
@@ -257,8 +320,13 @@
                                                         <div class="input-icon right">
                                                             <div class="input-height date form_date"
                                                                  data-date-format="yyyy/mm/dd" data-date="{{now()}}">
-                                                                <input size="30" type="text" required="" readonly=""
+                                                                <input size="30" type="text" required readonly class="@error('passed_year') is-invalid @enderror"
                                                                        name="passed_year" aria-required="true" value="{{$educ->passed_year}}">
+                                                                @error('passed_year')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{$message}}</strong>
+                                                                    </span>
+                                                                 @enderror      
                                                                 <span class="add-on"><i
                                                                             class="fa fa-remove icon-remove"></i></span>
                                                                 <span class="add-on"><i
@@ -305,7 +373,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <textarea name="about" class="form-control textarea" required rows="10">{{old('about','')}}</textarea>
+                                                            <textarea name="about" class="form-control textarea  @error('about') is-invalid @enderror" required rows="10">{{old('about','')}}</textarea>
+                                                            @error('about')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>  
@@ -317,7 +390,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control" name="address1"/>
+                                                            <input type="text" class="form-control @error('address1') is-invalid @enderror" name="address1" value="{{old('address1','')}}"/>
+                                                            @error('address1')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -328,7 +406,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control" name="address2"/>
+                                                            <input type="text" class="form-control @error('address2') is-invalid @enderror" name="address2" value="{{old('address2','')}}"/>
+                                                            @error('address2')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -340,7 +423,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control" name="phone1"/>
+                                                            <input type="text" class="form-control @error('phone1') is-invalid @enderror" name="phone1" value="{{old('phone1','')}}"/>
+                                                            @error('phone1')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -352,7 +440,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control" name="phone2"/>
+                                                            <input type="text" class="form-control @error('phone2') is-invalid @enderror" name="phone2" value="{{old('phone2','')}}"/>
+                                                            @error('phone2')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -366,7 +459,12 @@
                                                             <div class="input-height date form_date"
                                                                  data-date-format="yyyy-mm-dd" data-date="{{now()}}">
                                                                 <input size="30" type="text" required="" readonly=""
-                                                                       name="dob" aria-required="true">
+                                                                       name="dob" aria-required="true" value="{{old('dob','')}}" class=" @error('dob') is-invalid @enderror">
+                                                                @error('dob')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{$message}}</strong>
+                                                                    </span>
+                                                               @enderror   
                                                                 <span class="add-on"><i
                                                                             class="fa fa-remove icon-remove"></i></span>
                                                                 <span class="add-on"><i
@@ -383,7 +481,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="file" class="form-control" name="ctzn_f"/>
+                                                            <input type="file" class="form-control @error('ctzn_f') is-invalid @enderror" name="ctzn_f" value="{{old('ctzn_f','')}}"/>
+                                                            @error('ctzn_f')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div> 
@@ -395,7 +498,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="file" class="form-control" name="ctzn_b"/>
+                                                            <input type="file" class="form-control @error('ctzn_b') is-invalid @enderror" name="ctzn_b" value="{{old('ctzn_b','')}}"/>
+                                                            @error('ctzn_b')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>  
@@ -429,7 +537,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <textarea name="about" class="form-control textarea" required rows="10">{{old('about',$prsnl->about)}}</textarea>
+                                                            <textarea name="about" class="form-control textarea @error('about') is-invalid @enderror" required rows="10">{{old('about',$prsnl->about)}}</textarea>
+                                                            @error('about')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>                                                 
@@ -440,7 +553,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control" name="address1" value="{{$prsnl->address1}}"/>
+                                                            <input type="text" class="form-control @error('address1') is-invalid @enderror" name="address1" value="{{$prsnl->address1}}"/>
+                                                            @error('address1')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -451,7 +569,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control" name="address2" value="{{$prsnl->address2}}"/>
+                                                            <input type="text" class="form-control @error('address2') is-invalid @enderror" name="address2" value="{{$prsnl->address2}}"/>
+                                                            @error('address2')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -463,7 +586,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control" name="phone1" value="{{$prsnl->phone1}}"/>
+                                                            <input type="text" class="form-control @error('phone1') is-invalid @enderror" name="phone1" value="{{$prsnl->phone1}}"/>
+                                                            @error('phone1')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -475,7 +603,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <input type="text" class="form-control" name="phone2" value="{{$prsnl->phone2}}"/>
+                                                            <input type="text" class="form-control @error('phone2') is-invalid @enderror" name="phone2" value="{{$prsnl->phone2}}"/>
+                                                            @error('phone2')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -488,8 +621,13 @@
                                                         <div class="input-icon right">
                                                             <div class="input-append date form_date"
                                                                  data-date-format="yy-m-d H:i:s" data-date="{{now()}}">
-                                                                <input size="30" type="text" required="" readonly=""
+                                                                <input size="30" type="text" required="" readonly class=" @error('dob') is-invalid @enderror"
                                                                        name="dob" aria-required="true" value="{{$prsnl->dob}}">
+                                                                @error('dob')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{$message}}</strong>
+                                                                    </span>
+                                                                @enderror  
                                                                 <span class="add-on"><i
                                                                             class="fa fa-remove icon-remove"></i></span>
                                                                 <span class="add-on"><i
@@ -536,7 +674,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <textarea name="experience" class="form-control textarea" required rows="10">{{old('experience','')}}</textarea>
+                                                            <textarea name="experience" class="form-control textarea @error('experience') is-invalid @enderror" required rows="10">{{old('experience','')}}</textarea>
+                                                            @error('experience')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -547,7 +690,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <textarea name="skills" class="form-control textarea" required rows="10">{{old('skills','')}}</textarea>
+                                                            <textarea name="skills" class="form-control textarea @error('skills') is-invalid @enderror" required rows="10">{{old('skills','')}}</textarea>
+                                                            @error('skills')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -558,7 +706,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <textarea name="projects" class="form-control textarea" required rows="10">{{old('projects','')}}</textarea>                                                    
+                                                            <textarea name="projects" class="form-control textarea @error('projects') is-invalid @enderror" required rows="10">{{old('projects','')}}</textarea>
+                                                            @error('projects')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror                                                      
                                                     </div>
                                                 </div>                                                
                                             </div>
@@ -590,7 +743,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <textarea name="experience" class="form-control textarea" required rows="10">{{old('experience',$wrk->experience)}}</textarea>
+                                                            <textarea name="experience" class="form-control textarea @error('experience') is-invalid @enderror" required rows="10">{{old('experience',$wrk->experience)}}</textarea>
+                                                            @error('experience')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>    
                                                     </div>
                                                 </div>
@@ -601,7 +759,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <textarea name="skills" class="form-control textarea" required rows="10">{{old('skills',$wrk->skills)}}</textarea>
+                                                            <textarea name="skills" class="form-control textarea @error('skills') is-invalid @enderror" required rows="10">{{old('skills',$wrk->skills)}}</textarea>
+                                                            @error('skills')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -612,7 +775,12 @@
                                                     <div class="col-md-9">
                                                         <div class="input-icon right">
                                                             <i class="fa"></i>
-                                                            <textarea name="projects" class="form-control textarea" required rows="10">{{old('projects',$wrk->projects)}}</textarea>
+                                                            <textarea name="projects" class="form-control textarea @error('projects') is-invalid @enderror" required rows="10">{{old('projects',$wrk->projects)}}</textarea>
+                                                            @error('projects')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{$message}}</strong>
+                                                                </span>
+                                                            @enderror  
                                                         </div>
                                                     </div>
                                                 </div>

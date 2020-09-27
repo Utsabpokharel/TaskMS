@@ -46,7 +46,9 @@ class userProfileController extends Controller
     public function photo_update(Request $request, $id)
     {
         $user = allUser::findOrFail($id);
-         
+        $request->validate([
+            'image' => 'required |image |max:2500 '
+        ]);
         if ($request->hasFile('image')) {
             if ($user->image != null) {
                 unlink(public_path() . '/Uploads/UserImage/' . $user->image);
