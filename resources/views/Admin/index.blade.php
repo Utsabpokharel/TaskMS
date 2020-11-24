@@ -135,53 +135,6 @@
 						</div>
 					</div>
 
-                    <div class="row">
-						<div class="col-sm-12">
-							<div class="card-box">
-								<div class="card-head">
-									<header>Salary Status</header>
-								</div>
-								<div class="card-body ">
-									<div class="mdl-tabs mdl-js-tabs">										
-										<div class="mdl-tabs__panel is-active p-t-20" id="tab4-panel">
-											<div class="table-responsive">
-												<table class="table" id="exportTable">
-													<thead>
-													<th>Image</th>
-															<th>Employee Name</th>
-															<th>Joined Date</th>
-															<th>Salary Status</th>
-															<th>Basic Salary</th>
-															<th>Unpaid Amount</th>
-													</thead>
-													<tbody>
-													@foreach($allUsers as $usr)
-														<tr>
-														@if($usr->image)
-															<td>
-																<img src="{{asset('Uploads/UserImage/'.$usr->image)}}" alt="User image" width="85" height="75">
-															</td>
-														@else
-															<td>No image available</td>
-														@endif      
-															<td>{{$usr->name}}</td>
-															<td>{{$usr->joined_date}}</td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
-													@endforeach	
-													</tbody>
-												</table>
-												<div class="pull-right">{{$allUsers->links()}}</div>
-												
-											</div>											
-										</div>										
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
             @endif
 
         @if(Auth::user()->role_id==3)
