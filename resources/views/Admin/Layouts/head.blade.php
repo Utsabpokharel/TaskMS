@@ -31,6 +31,7 @@
 	<link href="{{asset('assets/css/theme/light/style.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{asset('assets/css/theme/light/theme-color.css')}}" rel="stylesheet" type="text/css" />
+	{{--<link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css" />--}}
 	<!-- favicon -->
 	<link rel="shortcut icon" href="{{asset('assets/img/favicon.ico')}}" />
 	<!-- Data Tables -->
