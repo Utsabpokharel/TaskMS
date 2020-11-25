@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\role;
 use App\allUser;
 use App\toDo;
+use App\Notification;
 
 class dashboardController extends Controller
 {
@@ -20,6 +21,7 @@ class dashboardController extends Controller
     }
 
     public function index(){
+
         // $bookings = Booking::orderBy('id','desc')->get();
         // return view('Admin/index');  
         $user=@Auth::user()->role_id;
@@ -49,5 +51,9 @@ class dashboardController extends Controller
         return view('Admin/index',compact('pending','completed','all','todo','roles','admins','employee',
         'users','task','admin_task','received','allUsers'));
       
+    }
+
+    public function notification(){
+        $notification=Notification::all();
     }
 }

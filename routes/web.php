@@ -30,6 +30,7 @@ Route::any('logout', 'AuthController@logout');
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function () {
      //dashboard
     Route::get('/index', 'dashboardController@index')->name('admin-dashboard');
+    Route::get('/notification', 'dashboardController@notification')->name('notification');
 
      //user profile    
     Route::get('/profile', 'userProfileController@auth_prof')->name('user_profile');
@@ -50,6 +51,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
      Route::put('//Todo-reassign/{id}','toDosController@reaassign')->name('reaassign');
      //task re-assign
      Route::put('/Todo-ReAssign/{id}', 'toDosController@ReAssign')->name('ReAssign');
+
+    Route::get('/Usermarkasread',function (){
+        auth()->user()->unreadNotifications->where('type','App\Notifications\UserNotification')->markAsRead();
+        return redirect()->route('user.index');
+    })->name('Usermarkasread');
+
+    Route::get('/Taskmarkasread',function (){
+        auth()->user()->unreadNotifications->where('type','App\Notifications\TaskNotification')->markAsRead();
+        return redirect()->route('Employee');
+    })->name('Taskmarkasread');
     
 });
 
@@ -84,3 +95,4 @@ Route::group(['middleware' => ['comment']], function () {
     //complete
     Route::put('/Todo-Complete/{id}','toDosController@complete')->name('complete');
 });
+

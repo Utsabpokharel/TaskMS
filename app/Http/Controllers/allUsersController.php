@@ -10,7 +10,8 @@ use App\Http\Requests\userValidator;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\UserCreateMail;
 use Illuminate\Support\Facades\Mail;
-// use Auth;
+use App\Notifications\UserNotification;
+use Auth;
 
 class allUsersController extends Controller
 {
@@ -43,7 +44,7 @@ class allUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(userValidator $request)
+    public function store(userValidator $request,allUser $thread)
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -64,8 +65,13 @@ class allUsersController extends Controller
         ]);
         $users = $user->save();
         // Mail::send(new UserCreateMail());
+        $admin=allUser::where('role_id','=','1')->get();
+        $thread->added_by=Auth::user()->name;
+        $thread->added_to=$request->name;
+        foreach ($admin as $admin){
+            $admin->notify(new \App\Notifications\UserNotification($thread));
+        }
         Mail::to($user->email)->send(new UserCreateMail('$user->name'));
-       
         if($users){
             return redirect()->route('user.index')->with('success','New User Created Successfully');
         }else{
