@@ -47,7 +47,7 @@
 													<span class="required"> * </span>
 												</label>
 												<div class="col-md-5">
-													<input type="text" name="main_dept" required placeholder="enter main department" 
+													<input type="text" name="main_dept" required placeholder="enter main department"
 													class="form-control input-height @error('main_dept') is-invalid @enderror" value="{{old('main_dept',$depart->main_dept)}}" />
 													@error('main_dept')
 														<span class="invalid-feedback" role="alert">
@@ -62,7 +62,7 @@
 													<span class="required"> * </span>
 												</label>
 												<div class="col-md-5">
-													<input type="text" name="sub_dept" required placeholder="Sub-department(if any) else enter None" 
+													<input type="text" name="sub_dept" required placeholder="Sub-department(if any) else enter None"
 													class="form-control input-height @error('sub_dept') is-invalid @enderror" value="{{old('main_dept',$depart->sub_dept)}}" />
 													@error('sub_dept')
 														<span class="invalid-feedback" role="alert">
@@ -70,8 +70,8 @@
 														</span>
 													@enderror
 												</div>
-											</div>																						
-																						
+											</div>
+
 											<div class="form-group row">
 												<label class="control-label col-md-3">Department Details
 													<span class="required"> * </span>
@@ -102,4 +102,4 @@
 					</div>
 				</div>
 			</div>
-@endsection			
+@endsection

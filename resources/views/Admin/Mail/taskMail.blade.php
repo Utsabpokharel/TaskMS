@@ -1,14 +1,14 @@
 @component('mail::message')
 <h2>Hello Valued Employee,<h2>
-  <p>You have been assigned a task from our office. </p>
-    <i>We are pleased to inform you to login your dashboard for more details.<br>
-        Please contact office for any queries<b></b>
-    </i>
+        <p>You have been assigned a task from our office. </p>
+        <i>We are pleased to inform you to login your dashboard for more details.<br>
+            Please contact office for any queries<b></b>
+        </i>
 
-@component('mail::button', ['url' => 'https://tasks.gcn.com.np/'])
-Click here...
-@endcomponent
+        @component('mail::button', ['url' => 'http://www.task.gcn.com.np/'])
+        Click here...
+        @endcomponent
 
-Thanks,<br>
-{{ config('app.name') }}
-@endcomponent
+        Thanks,<br>
+        {{ config('app.name') }}
+        @endcomponent

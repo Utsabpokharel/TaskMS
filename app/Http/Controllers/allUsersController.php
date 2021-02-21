@@ -6,12 +6,17 @@ use Illuminate\Http\Request;
 use App\allUser;
 use App\role;
 use App\department;
+use App\educationDetail;
 use App\Http\Requests\userValidator;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\UserCreateMail;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\UserNotification;
-use Auth;
+use App\personalDetail;
+use App\workDetail;
+use Illuminate\Support\Facades\Auth;
+
+// use Auth;
 
 class allUsersController extends Controller
 {
@@ -23,7 +28,7 @@ class allUsersController extends Controller
     public function index()
     {
         $users = allUser::orderBy('id', 'desc')->get();
-        return view('Admin.User.view',compact('users'));
+        return view('Admin.User.view', compact('users'));
     }
 
     /**
@@ -35,7 +40,7 @@ class allUsersController extends Controller
     {
         $roles = role::all();
         $depart = department::all();
-        return view('Admin.User.create',compact('roles','depart'));
+        return view('Admin.User.create', compact('roles', 'depart'));
     }
 
     /**
@@ -44,12 +49,12 @@ class allUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(userValidator $request,allUser $thread)
+    public function store(userValidator $request, allUser $thread)
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $name = "User-".time() .'.'. $image->getClientOriginalExtension();           
-            $image->move('Uploads/UserImage/',$name);            
+            $name = "User-" . time() . '.' . $image->getClientOriginalExtension();
+            $image->move('Uploads/UserImage/', $name);
         }
         $user = new allUser([
             'name' => $request->name,
@@ -60,22 +65,22 @@ class allUsersController extends Controller
             'department_id' => $request->department_id,
             'position' => $request->position,
             'joined_date' => $request->joined_date,
-            'sub_department' => $request->sub_department,            
-            'image' => $name,           
+            'sub_department' => $request->sub_department,
+            'image' => $name,
         ]);
         $users = $user->save();
         // Mail::send(new UserCreateMail());
-        $admin=allUser::where('role_id','=','1')->get();
-        $thread->added_by=Auth::user()->name;
-        $thread->added_to=$request->name;
-        foreach ($admin as $admin){
+        $admin = allUser::where('role_id', '=', '1')->get();
+        $thread->added_by = Auth::user()->name;
+        $thread->added_to = $request->name;
+        foreach ($admin as $admin) {
             $admin->notify(new \App\Notifications\UserNotification($thread));
         }
         Mail::to($user->email)->send(new UserCreateMail('$user->name'));
-        if($users){
-            return redirect()->route('user.index')->with('success','New User Created Successfully');
-        }else{
-            return redirect()->back()->with('error','Oops!!! some error occurred');
+        if ($users) {
+            return redirect()->route('user.index')->with('success', 'New User Created Successfully');
+        } else {
+            return redirect()->back()->with('error', 'Oops!!! some error occurred');
         }
     }
 
@@ -87,7 +92,12 @@ class allUsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $userDetail = allUser::findOrFail($id);
+
+        $personalDetail =  personalDetail::where('user_id', '=', $userDetail->id)->first();
+        $educationDetail =  educationDetail::where('user_id', '=', $userDetail->id)->first();
+        $workDetail =  workDetail::where('user_id', '=', $userDetail->id)->first();
+        return view('Admin.User.details', compact('userDetail', 'personalDetail', 'educationDetail', 'workDetail'));
     }
 
     /**
@@ -101,7 +111,7 @@ class allUsersController extends Controller
         $users = allUser::findOrFail($id);
         $roles = role::all();
         $depart = department::all();
-        return view('Admin.User.edit',compact('users','roles','depart'));
+        return view('Admin.User.edit', compact('users', 'roles', 'depart'));
     }
 
     /**
@@ -118,9 +128,9 @@ class allUsersController extends Controller
             'name' => 'required | min:3 | max:50',
             'email' => 'required| email:rfc,dns',
             'role_id' => 'required',
-            'gender' =>'required',
+            'gender' => 'required',
             'department_id' => 'required',
-            'position' =>'required',
+            'position' => 'required',
             'joined_date' => 'required',
             'sub_department' => 'required'
         ]);
@@ -134,10 +144,10 @@ class allUsersController extends Controller
         $user->sub_department = $request->sub_department;
         $update = $user->save();
         // dd($update);
-        if($update){
-            return redirect()->route('user.index')->with('success','Users details updated successfully');
-        }else{
-            return redirect()->back()->with('error', 'Some error occured while updating Admin'); 
+        if ($update) {
+            return redirect()->route('user.index')->with('success', 'Users details updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Some error occured while updating Admin');
         }
     }
 

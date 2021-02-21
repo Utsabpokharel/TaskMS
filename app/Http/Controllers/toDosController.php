@@ -207,7 +207,7 @@ class toDosController extends Controller
 
     public function complete(Request $request, $id)
     {
-//      dd($request->all());
+        //      dd($request->all());
 
         $todo = toDo::findOrFail($id);
         $todo->status = 1;
@@ -218,7 +218,6 @@ class toDosController extends Controller
                 $reAssigned_usr = $todo->ReUser_id;
                 $assig_user = allUser::find($reAssigned_usr);
                 Mail::to($assig_user->email)->send(new TaskCompleteMail($todo->title));
-
             } else {
                 $assigned_usr = $todo->user_id;
                 $assig_user = allUser::find($assigned_usr);
@@ -226,9 +225,8 @@ class toDosController extends Controller
             }
             return redirect()->back()->with('success', 'Task Status changed');
         } else {
-            request()->session()->with('error', 'sorry there was an error Re_Assigning Task');
+            return redirect()->back()->with('error', 'sorry there was an error Re_Assigning Task');
         }
-
     }
 
     public function reaassign($id)
@@ -243,7 +241,6 @@ class toDosController extends Controller
         $employee = allUser::where('role_id', '=', $employee->id)->get();
 
         return view('Admin.Task.reAssign', compact('d', 'superAdmin', 'employee', 'todo'));
-
     }
 
     public function ReAssign(Request $request, $id, allUser $thread)

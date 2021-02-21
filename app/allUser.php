@@ -11,7 +11,7 @@ class allUser extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = ['name','email','password','image','gender','position','joined_date','role_id','department_id','sub_department','status'];
+    protected $fillable = ['name', 'email', 'password', 'image', 'gender', 'position', 'joined_date', 'role_id', 'department_id', 'sub_department', 'status'];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -20,16 +20,27 @@ class allUser extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
-    public function roles(){
-        return $this->belongsTo('App\role','role_id');
+
+    public function roles()
+    {
+        return $this->belongsTo('App\role', 'role_id');
     }
 
-    public function department(){
+    public function department()
+    {
         return $this->belongsTo('App\department', 'department_id');
     }
 
-    public function task(){
+    public function task()
+    {
         return $this->hasMany('App\toDo');
+    }
+    public function personal()
+    {
+        return $this->hasOne('App\personalDetail');
+    }
+    public function work()
+    {
+        return $this->hasOne('App\workDetail');
     }
 }

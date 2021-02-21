@@ -23,7 +23,7 @@
 			<div class="card card-box">
 				<div class="card-head">
 					<header>All Department</header>
-                    <a class="parent-item pull-right btn btn-primary" href="{{ route('department.create') }}">Add +</a>									
+                    <a class="parent-item pull-right btn btn-primary" href="{{ route('department.create') }}">Add +</a>
 				</div>
 				<div class="card-body " id="bar-parent">
     				<table id="exportTable" class="display nowrap" style="width:100%">
@@ -33,10 +33,10 @@
 								<th>Main Department</th>
                                 <th>Sub Department</th>
 								<th>Description</th>
-								<th>Actions</th>																									
+								<th>Actions</th>
 							</tr>
 						</thead>
-						<tbody>						
+						<tbody>
                         @foreach($depart as $dept)
                                     <tr>
                                         <td>{{$dept->id}}</td>
@@ -62,7 +62,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach																											
+                                @endforeach
 						</tbody>
 						<tfoot>
     						<tr>
@@ -70,7 +70,7 @@
 								<th>Main Department</th>
                                 <th>Sub Department</th>
 								<th>Description</th>
-								<th>Actions</th>		
+								<th>Actions</th>
 							</tr>
 						</tfoot>
 					</table>
