@@ -24,14 +24,13 @@ class taskValidator extends FormRequest
     public function rules()
     {
         return [
-            'title'	=>'required | min:5 | max:50',
-            'description'	=>'required |min:10 |max:100',	
-            'assignedDate'	=>'required',            	
-            'assignedTo'	=>'required',	
-            'deadline'	=>'required',	
-            'task_priority'	=>'required',	
-            'fileUpload'	=>'max:5050',            	
-            'remarks'	=>'required',		
+            'title'    => 'required | min:5 | max:50',
+            'description'    => 'required |min:10 |max:500',
+            'assignedDate'    => 'required',
+            'assignedTo'    => 'required',
+            'deadline'    => 'required',
+            'task_priority'    => 'required',
+            'remarks'    => 'required',
         ];
     }
 }

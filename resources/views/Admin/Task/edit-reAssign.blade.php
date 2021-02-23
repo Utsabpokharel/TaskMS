@@ -14,7 +14,7 @@
                     <li><a class="parent-item" href="{{route('task.index')}}">ToDos</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
-                    <li class="active">Task Re-Assign </li>
+                    <li class="active">Edit Task Re-Assign </li>
                 </ol>
             </div>
         </div>
@@ -25,7 +25,7 @@
                         <header></header>
                     </div>
                     <div class="card-body" id="bar-parent2">
-                        <form action="{{route('ReAssign',$todo->id)}}" method="post" id="form_sample_2"
+                        <form action="{{route('updateReassign',$todo->id)}}" method="post" id="form_sample_2"
                             class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
                             {{csrf_field()}}
                             <input type="hidden" name="_method" value="PUT">
@@ -44,7 +44,9 @@
                             <div class="input-icon right">
                                 <i class="fa"></i>
                                 <select class="form-control col-12 input-append" required name="reAssignedTo">
-                                    <option value="" disabled selected>--Select Staffs--</option>
+                                    <option value="{{ $todo->reAssignedTo }}" selected>
+                                        {{ $todo->employee['name'] }}</option>
+                                    <option value="" disabled>--Select Staffs--</option>
                                     @if(isset($employee))
                                     @foreach($employee as $employee_data)
                                     <option value="{{$employee_data->id}}">{{$employee_data->name}}</option>
@@ -55,12 +57,13 @@
                         </div>
                     </div>
                     <div class="form-group row margin-top-20">
-                        <label class="col-md-3 control-label">Deadline
+                        <label class="col-md-3 control-label">Re-Deadline
                             <span class="required"> * </span>
                         </label>
                         <div class="col-md-8">
                             <div class="input-append  date form_date" data-date-format="yyyy-mm-dd">
-                                <input size="30" type="text" required readonly name="reDeadline">
+                                <input size="30" type="text" required readonly name="reDeadline"
+                                    value="{{old('reDeadline',$todo->reDeadline)}}">
                                 <span class="add-on"><i class="fa fa-remove icon-remove"></i></span>
                                 <span class="add-on"><i class="fa fa-calendar"></i></span>
                             </div>
@@ -75,7 +78,7 @@
                                 <i class="fa"></i>
                                 <textarea name="reason"
                                     class="form-control textarea @error('reason') is-invalid @enderror" cols="auto"
-                                    required rows="10">{{old('reason','')}}</textarea>
+                                    required rows="10">{{old('reason',$todo->reason)}}</textarea>
                                 @error('reason')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{$message}}</strong>

@@ -92,10 +92,11 @@ class toDosController extends Controller
             'remarks' => $request->remarks,
             'deadline' => $request->deadline,
             'task_priority' => $request->task_priority,
+            'reason' => $request->reason,
         ]);
         if ($request->hasFile('fileUpload')) {
             $image = $request->file('fileUpload');
-            $name = time() . '.' . $image->getClientOriginalExtension();
+            $name = "ToDo-" . time() . '.' . $image->getClientOriginalExtension();
             $image->move('Uploads/ToDoFiles/', $name);
             $todo->fileUpload = $name;
         }
@@ -124,13 +125,6 @@ class toDosController extends Controller
      */
     public function show($id)
     {
-        // $tsk = toDo::orderBy('id', 'desc')->get();
-        // $superAdmin = role::where('name', '=', 'super_admin')->first();
-        // $employee = role::where('name', '=', 'employee')->first();
-
-        // $superAdmin = allUser::where('role_id', '=', $superAdmin->id)->get();
-        // $employee = allUser::where('role_id', '=', $employee->id)->get();
-        // $tsk = toDo::orderBy('id', 'desc')->get();
         $tsk = toDo::findOrFail($id);
         $comment = comment::where('todo_id', $id)->get();
         // dd($comment);
@@ -168,6 +162,23 @@ class toDosController extends Controller
     public function update(taskValidator $request, $id)
     {
         $tasks = toDo::find($id);
+        $tasks->title = $request->title;
+        $tasks->description = $request->description;
+        $tasks->deadline = $request->deadline;
+        $tasks->assignedTo = $request->assignedTo;
+        $tasks->task_priority = $request->task_priority;
+        $tasks->remarks = $request->remarks;
+        if ($request->hasFile('fileUpload')) {
+            if ($tasks->fileUpload != null) {
+                unlink(public_path() . '/Uploads/ToDoFiles/' . $tasks->fileUpload);
+            }
+            $new_img = $request->file('fileUpload');
+            $name = "ToDo-" . time() . '.' . $new_img->getClientOriginalExtension();
+            $new_img->move('Uploads/ToDoFiles/', $name);
+            $tasks->fileUpload = $name;
+        } else {
+            $tasks->fileUpload =  $tasks->fileUpload;
+        }
         $update = $tasks->save();
         if ($update) {
             if (Auth::user()->roles->name == 'admin') {
@@ -242,7 +253,40 @@ class toDosController extends Controller
 
         return view('Admin.Task.reAssign', compact('d', 'superAdmin', 'employee', 'todo'));
     }
+    public function editreaassign($id)
+    {
+        $d = Carbon::now();
+        // $this->toDo = $this->toDo->find($id);
+        $todo = toDo::findOrFail($id);
+        $superAdmin = role::where('name', '=', 'super_admin')->first();
+        $employee = role::where('name', '=', 'employee')->first();
 
+        $superAdmin = allUser::where('role_id', '=', $superAdmin->id)->get();
+        $employee = allUser::where('role_id', '=', $employee->id)->get();
+
+        return view('Admin.Task.edit-reAssign', compact('d', 'superAdmin', 'employee', 'todo'));
+    }
+    public function updateReassign(Request $request, $id)
+    {
+        $user = @Auth::user();
+        $d = Carbon::now();
+        $todo = toDo::findOrFail($id);
+        $todo->status = 0;
+        $todo->reAssignedTo = $request->reAssignedTo;
+        $todo->reAssignedDate = $request->reAssignedDate;
+        $todo->reDeadline = $request->reDeadline;
+        $todo->ReAssignedBy = $request->ReAssignedBy;
+        $todo->reason = $request->reason;
+        $update = $todo->update();
+        if ($update) {
+            $assigned_usr = $todo->reAssignedTo;
+            $assig_user = allUser::find($assigned_usr);
+            Mail::to($assig_user->email)->send(new TaskMail());
+            return redirect()->route('assignTask', compact('d'))->with('success', 'Re-Assigned Task Updated Successfully !!!');
+        } else {
+            request()->redirect()->back()->with('error', 'sorry there was an error!!!');
+        }
+    }
     public function ReAssign(Request $request, $id, allUser $thread)
     {
 

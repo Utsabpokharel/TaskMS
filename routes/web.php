@@ -53,6 +53,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::resource('/personal', 'personalDetailsController');
     //re-assign
     Route::put('//Todo-reassign/{id}', 'toDosController@reaassign')->name('reaassign');
+    //edit re-assign
+    Route::any('//Todo-editreassign/{id}', 'toDosController@editreaassign')->name('editre-assign');
+    Route::any('//Todo-updatereassign/{id}', 'toDosController@updateReassign')->name('updateReassign');
     //task re-assign
     Route::put('/Todo-ReAssign/{id}', 'toDosController@ReAssign')->name('ReAssign');
 
