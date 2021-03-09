@@ -24,10 +24,11 @@ class CreateToDosTable extends Migration
             $table->string('task_priority');
             $table->string('fileUpload')->nullable();
             $table->string('assignedBy');
-            $table->string('ReAssignedBy')->nullable();            
+            $table->string('ReAssignedBy')->nullable();
             $table->string('reAssignedTo')->nullable();
             $table->date('reAssignedDate')->nullable();
-            $table->date('reDeadline')->nullable();           
+            $table->date('reDeadline')->nullable();
+            $table->longText('reason')->nullable();
             $table->boolean('status')->default(0);
             $table->longText('remarks')->nullable();
             $table->foreignId('user_id')->constrained('all_users')->onDelete('cascade');

@@ -11,7 +11,7 @@ class allUser extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = ['name', 'email', 'password', 'image', 'gender', 'position', 'joined_date', 'role_id', 'department_id', 'sub_department', 'status'];
+    protected $fillable = ['name', 'email', 'password', 'image', 'emp_id', 'gender', 'position', 'joined_date', 'role_id', 'department_id', 'sub_department', 'status'];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -34,6 +34,10 @@ class allUser extends Authenticatable
     public function task()
     {
         return $this->hasMany('App\toDo');
+    }
+    public function leaves()
+    {
+        return $this->hasMany('App\leave');
     }
     public function personal()
     {
