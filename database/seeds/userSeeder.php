@@ -13,15 +13,16 @@ class userSeeder extends Seeder
     public function run()
     {
         DB::table('all_users')->insert([
-            'name'=>'Admin',
-            'email'=>'admin@admin.com',
-            'password'=>bcrypt('admin123'),
-            'role_id'=>'1',
-            'department_id'=>'1',
+            'emp_id' => '001',
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('admin123'),
+            'role_id' => '1',
+            'department_id' => '1',
             'gender' => 'male',
-            'position'=>'Developer',
-            'joined_date'=>date("Y-m-d H:i:s"),
-            'created_at'=> date("Y-m-d H:i:s"),
+            'position' => 'Developer',
+            'joined_date' => date("Y-m-d H:i:s"),
+            'created_at' => date("Y-m-d H:i:s"),
         ]);
     }
 }

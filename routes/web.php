@@ -34,6 +34,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/index', 'dashboardController@index')->name('admin-dashboard');
     Route::get('/notification', 'dashboardController@notification')->name('notification');
 
+    //leave apply
+    Route::resource('/leave', 'leaveController');
+
+    Route::get('/leaveApply', 'leaveController@employeeLeave')->name('employeeLeaveView');
     //user profile
     Route::get('/profile', 'userProfileController@auth_prof')->name('user_profile');
 
@@ -79,6 +83,18 @@ Route::group(['middleware' => ['super']], function () {
     Route::resource('/user', 'allUsersController');
     // tasks
     Route::resource('/task', 'toDosController');
+    //leaveTypes
+    Route::resource('/leaveType', 'leaveTypesController');
+    //leave approve
+    Route::put('/Leave-Approve/{id}', 'leaveController@approve')->name('approve');
+    //leave reject
+    Route::put('/Leave-Reject/{id}', 'leaveController@reject')->name('reject');
+    //leave pending
+    Route::get('/Pending-Leaves', 'leaveController@pending')->name('pendingLeaves');
+    //leave approved
+    Route::get('/Approved-Leaves', 'leaveController@leaveApproved')->name('approvedLeaves');
+    //leave rejected
+    Route::get('/Rejected-Leaves', 'leaveController@leaveRejected')->name('rejectedLeaves');
 });
 Route::group(['middleware' => ['adminn']], function () {
     Route::resource('/task', 'toDosController')->except(['index']);

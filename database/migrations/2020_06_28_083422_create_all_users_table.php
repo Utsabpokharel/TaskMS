@@ -15,13 +15,14 @@ class CreateAllUsersTable extends Migration
     {
         Schema::create('all_users', function (Blueprint $table) {
             $table->id();
+            $table->string('emp_id')->unique();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             // $table->tinyInteger('role_id')->nullable();
             $table->boolean('status')->default(0);
             $table->string('image')->nullable();
-            $table->enum('gender',['Male','Female','Other'])->nullable();           
+            $table->enum('gender', ['Male', 'Female', 'Other'])->nullable();
             $table->integer('sub_department')->nullable();
             $table->string('position');
             $table->date('joined_date');

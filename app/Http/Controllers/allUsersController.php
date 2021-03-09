@@ -57,6 +57,7 @@ class allUsersController extends Controller
             $image->move('Uploads/UserImage/', $name);
         }
         $user = new allUser([
+            'emp_id' => $request->emp_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -125,6 +126,7 @@ class allUsersController extends Controller
     {
         $user = allUser::find($id);
         $request->validate([
+            'emp_id' => 'required',
             'name' => 'required | min:3 | max:50',
             'email' => 'required| email:rfc,dns',
             'role_id' => 'required',
@@ -134,6 +136,7 @@ class allUsersController extends Controller
             'joined_date' => 'required',
             'sub_department' => 'required'
         ]);
+        $user->emp_id = $request->emp_id;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role_id = $request->role_id;
